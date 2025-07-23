@@ -74,8 +74,6 @@ describe('BuiltinCommandLoader', () => {
     const loader = new BuiltinCommandLoader(mockConfig);
     await loader.loadCommands();
 
-    expect(ideCommandMock).toHaveBeenCalledTimes(1);
-    expect(ideCommandMock).toHaveBeenCalledWith(mockConfig);
     expect(restoreCommandMock).toHaveBeenCalledTimes(1);
     expect(restoreCommandMock).toHaveBeenCalledWith(mockConfig);
   });
@@ -98,8 +96,6 @@ describe('BuiltinCommandLoader', () => {
   it('should handle a null config gracefully when calling factories', async () => {
     const loader = new BuiltinCommandLoader(null);
     await loader.loadCommands();
-    expect(ideCommandMock).toHaveBeenCalledTimes(1);
-    expect(ideCommandMock).toHaveBeenCalledWith(null);
     expect(restoreCommandMock).toHaveBeenCalledTimes(1);
     expect(restoreCommandMock).toHaveBeenCalledWith(null);
   });
@@ -111,8 +107,5 @@ describe('BuiltinCommandLoader', () => {
     const aboutCmd = commands.find((c) => c.name === 'about');
     expect(aboutCmd).toBeDefined();
     expect(aboutCmd?.kind).toBe(CommandKind.BUILT_IN);
-
-    const ideCmd = commands.find((c) => c.name === 'ide');
-    expect(ideCmd).toBeDefined();
   });
 });

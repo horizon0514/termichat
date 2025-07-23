@@ -103,6 +103,12 @@ export function createContentGeneratorConfig(
     return contentGeneratorConfig;
   }
 
+  if (authType === AuthType.USE_CUSTOM_LLM) {
+    contentGeneratorConfig.authType = AuthType.USE_CUSTOM_LLM;
+    contentGeneratorConfig.model = process.env.CUSTOM_LLM_MODEL_NAME || '';
+    return contentGeneratorConfig;
+  }
+
   return contentGeneratorConfig;
 }
 

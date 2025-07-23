@@ -76,7 +76,6 @@ describe('aboutCommand', () => {
         sandboxEnv: 'no sandbox',
         modelVersion: 'test-model',
         selectedAuthType: 'test-auth',
-        gcpProject: 'test-gcp-project',
       },
       expect.any(Number),
     );

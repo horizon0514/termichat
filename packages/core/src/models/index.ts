@@ -33,71 +33,11 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     top_p: this.topP,
   };
 
-  constructor() {
-    // Validate required environment variables
-    this.validateConfiguration();
-    
+  constructor() {    
     this.model = createOpenAI({
       apiKey: this.apiKey,
       baseURL: this.baseURL,
     });
-    
-    // Debug logging for configuration
-    console.debug('[CustomLLM] Configuration:', {
-      modelName: this.modelName,
-      baseURL: this.baseURL,
-      hasApiKey: !!this.apiKey,
-      temperature: this.temperature,
-      maxTokens: this.maxTokens,
-      topP: this.topP,
-    });
-  }
-
-  /**
-   * Validates that all required environment variables are set
-   */
-  private validateConfiguration(): void {
-    const missingVars: string[] = [];
-    
-    if (!this.apiKey) {
-      missingVars.push('CUSTOM_LLM_API_KEY');
-    }
-    
-    if (!this.baseURL) {
-      missingVars.push('CUSTOM_LLM_BASE_URL');
-    }
-    
-    if (!this.modelName) {
-      missingVars.push('CUSTOM_LLM_MODEL_NAME');
-    }
-    
-    if (missingVars.length > 0) {
-      const errorMessage = [
-        '❌ Custom LLM 配置不完整！缺少以下环境变量：',
-        '',
-        ...missingVars.map(varName => `  • ${varName}`),
-        '',
-        '📋 请设置以下环境变量：',
-        '',
-        '# 示例配置',
-        'export CUSTOM_LLM_API_KEY="your-api-key"',
-        'export CUSTOM_LLM_BASE_URL="https://api.your-provider.com/v1"  # 兼容 OpenAI API 的端点',
-        'export CUSTOM_LLM_MODEL_NAME="gpt-4"  # 或者您的模型名称',
-        '',
-        '# 可选配置（有默认值）',
-        'export CUSTOM_LLM_TEMPERATURE="0"',
-        'export CUSTOM_LLM_MAX_TOKENS="8192"',
-        'export CUSTOM_LLM_TOP_P="1"',
-        '',
-        '🔧 支持的提供商：',
-        '  • OpenAI 兼容的 API 端点',
-        '  • Azure OpenAI',
-        '  • 本地部署的模型（如 Ollama、LM Studio 等）',
-        '  • 其他支持 OpenAI API 格式的服务',
-      ].join('\n');
-      
-      throw new Error(errorMessage);
-    }
   }
 
   /**
@@ -157,21 +97,10 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     const isJsonRequest = request.config?.responseMimeType === 'application/json' && 
                          request.config?.responseSchema;
     
-    console.debug('[CustomLLM] generateContentStream:', {
-      isJsonRequest,
-      messageCount: messages.length,
-      hasSchema: !!request.config?.responseSchema,
-      responseMimeType: request.config?.responseMimeType,
-    });
-    
     if (isJsonRequest && request.config?.responseSchema) {
       // Use streamObject for structured JSON output
       const rawSchema = request.config.responseSchema as Record<string, unknown>;
       const normalizedSchema = this.normalizeSchema(rawSchema);
-      
-      console.debug('[CustomLLM] Using streamObject for JSON output');
-      console.debug('[CustomLLM] Raw schema:', rawSchema);
-      console.debug('[CustomLLM] Normalized schema:', normalizedSchema);
       
       try {
         const stream = streamObject({
@@ -196,9 +125,7 @@ export class CustomLLMContentGenerator implements ContentGenerator {
         throw new Error(`Failed to generate streaming JSON content: ${error instanceof Error ? error.message : String(error)}`);
       }
     } else {
-      // Use streamText for regular text output
-      console.debug('[CustomLLM] Using streamText for regular output');
-      
+      // Use streamText for regular text output      
       try {
         const stream = streamText({
           model: this.model(this.modelName),
@@ -217,7 +144,6 @@ export class CustomLLMContentGenerator implements ContentGenerator {
           }
         })();
       } catch (error) {
-        console.error('[CustomLLM] streamText error:', error);
         throw new Error(`Failed to generate streaming text content: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
@@ -235,21 +161,10 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     const isJsonRequest = request.config?.responseMimeType === 'application/json' && 
                          request.config?.responseSchema;
     
-    console.debug('[CustomLLM] generateContent:', {
-      isJsonRequest,
-      messageCount: messages.length,
-      hasSchema: !!request.config?.responseSchema,
-      responseMimeType: request.config?.responseMimeType,
-    });
-    
     if (isJsonRequest && request.config?.responseSchema) {
       // Use generateObject for structured JSON output
       const rawSchema = request.config.responseSchema as Record<string, unknown>;
       const normalizedSchema = this.normalizeSchema(rawSchema);
-      
-      console.debug('[CustomLLM] Using generateObject for JSON output');
-      console.debug('[CustomLLM] Raw schema:', rawSchema);
-      console.debug('[CustomLLM] Normalized schema:', normalizedSchema);
       
       try {
         const result = await generateObject({
@@ -261,11 +176,6 @@ export class CustomLLMContentGenerator implements ContentGenerator {
           topP: this.topP,
         });
 
-        console.debug('[CustomLLM] generateObject result:', {
-          hasObject: !!result.object,
-          usage: result.usage,
-        });
-
         // Type assertion for the result
         const typedResult = {
           object: result.object as Record<string, unknown>,
@@ -275,13 +185,10 @@ export class CustomLLMContentGenerator implements ContentGenerator {
         
         return ModelConverter.toGeminiObjectResponse(typedResult);
       } catch (error) {
-        console.error('[CustomLLM] generateObject error:', error);
         throw new Error(`Failed to generate JSON content: ${error instanceof Error ? error.message : String(error)}`);
       }
     } else {
-      // Use generateText for regular text output
-      console.debug('[CustomLLM] Using generateText for regular output');
-      
+      // Use generateText for regular text output      
       try {
         const result = await generateText({
           model: this.model(this.modelName),
@@ -291,14 +198,8 @@ export class CustomLLMContentGenerator implements ContentGenerator {
           topP: this.topP,
         });
 
-        console.debug('[CustomLLM] generateText result:', {
-          hasText: !!result.text,
-          usage: result.usage,
-        });
-
         return ModelConverter.toGeminiResponse(result);
       } catch (error) {
-        console.error('[CustomLLM] generateText error:', error);
         throw new Error(`Failed to generate text content: ${error instanceof Error ? error.message : String(error)}`);
       }
     }

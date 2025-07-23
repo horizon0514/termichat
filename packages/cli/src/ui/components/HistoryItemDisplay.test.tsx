@@ -58,12 +58,11 @@ describe('<HistoryItemDisplay />', () => {
       sandboxEnv: 'test-env',
       modelVersion: 'test-model',
       selectedAuthType: 'test-auth',
-      gcpProject: 'test-project',
     };
     const { lastFrame } = render(
       <HistoryItemDisplay {...baseItem} item={item} />,
     );
-    expect(lastFrame()).toContain('About Gemini CLI');
+    expect(lastFrame()).toContain('About TermiChat');
   });
 
   it('renders ModelStatsDisplay for "model_stats" type', () => {
