@@ -27,7 +27,6 @@ export const aboutCommand: SlashCommand = {
     const cliVersion = await getCliVersion();
     const selectedAuthType =
       context.services.settings.merged.selectedAuthType || '';
-    const gcpProject = process.env.GOOGLE_CLOUD_PROJECT || '';
 
     const aboutItem: Omit<HistoryItemAbout, 'id'> = {
       type: MessageType.ABOUT,
@@ -36,7 +35,6 @@ export const aboutCommand: SlashCommand = {
       sandboxEnv,
       modelVersion,
       selectedAuthType,
-      gcpProject,
     };
 
     context.ui.addItem(aboutItem, Date.now());

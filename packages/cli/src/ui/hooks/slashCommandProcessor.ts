@@ -81,7 +81,6 @@ export const useSlashCommandProcessor = (
           sandboxEnv: message.sandboxEnv,
           modelVersion: message.modelVersion,
           selectedAuthType: message.selectedAuthType,
-          gcpProject: message.gcpProject,
         };
       } else if (message.type === MessageType.STATS) {
         historyItemContent = {

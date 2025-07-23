@@ -22,9 +22,8 @@
     "gemini",
     "conversation"
   ],
-  "author": "TermiChat Contributors",
+  "author": "horizon0514",
   "license": "Apache-2.0",
-
   "scripts": {
     "start": "node scripts/start.js",
     "debug": "cross-env DEBUG=1 node --inspect-brk scripts/start.js",

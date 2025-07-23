@@ -94,7 +94,6 @@ export type HistoryItemAbout = HistoryItemBase & {
   sandboxEnv: string;
   modelVersion: string;
   selectedAuthType: string;
-  gcpProject: string;
 };
 
 export type HistoryItemStats = HistoryItemBase & {

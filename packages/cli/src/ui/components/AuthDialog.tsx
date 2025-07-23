@@ -77,6 +77,7 @@ export function AuthDialog({
       value: AuthType.USE_GEMINI,
     },
     { label: 'Vertex AI', value: AuthType.USE_VERTEX_AI },
+    { label: 'Use Custom LLM', value: AuthType.USE_CUSTOM_LLM },
   ];
 
   const initialAuthIndex = items.findIndex((item) => {
