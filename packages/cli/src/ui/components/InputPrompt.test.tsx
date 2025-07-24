@@ -310,7 +310,7 @@ describe('InputPrompt', () => {
     it('should handle Ctrl+V when clipboard has an image', async () => {
       vi.mocked(clipboardUtils.clipboardHasImage).mockResolvedValue(true);
       vi.mocked(clipboardUtils.saveClipboardImage).mockResolvedValue(
-        '/test/.gemini-clipboard/clipboard-123.png',
+        '/test/.termichat-clipboard/clipboard-123.png',
       );
 
       const { stdin, unmount } = render(<InputPrompt {...props} />);
@@ -364,7 +364,7 @@ describe('InputPrompt', () => {
     it('should insert image path at cursor position with proper spacing', async () => {
       vi.mocked(clipboardUtils.clipboardHasImage).mockResolvedValue(true);
       vi.mocked(clipboardUtils.saveClipboardImage).mockResolvedValue(
-        '/test/.gemini-clipboard/clipboard-456.png',
+        '/test/.termichat-clipboard/clipboard-456.png',
       );
 
       // Set initial text and cursor position
@@ -388,7 +388,7 @@ describe('InputPrompt', () => {
       expect(actualCall[0]).toBe(5); // start offset
       expect(actualCall[1]).toBe(5); // end offset
       expect(actualCall[2]).toMatch(
-        /@.*\.gemini-clipboard\/clipboard-456\.png/,
+        /@.*\.termichat-clipboard\/clipboard-456\.png/,
       ); // flexible path match
       unmount();
     });

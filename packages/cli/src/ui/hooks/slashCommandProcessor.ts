@@ -337,6 +337,8 @@ export const useSlashCommandProcessor = (
       openPrivacyNotice,
       openEditorDialog,
       setQuittingMessages,
+      openProviderDialog,
+      openProviderListDialog,
     ],
   );
 

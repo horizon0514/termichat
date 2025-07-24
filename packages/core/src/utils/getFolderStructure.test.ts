@@ -326,10 +326,10 @@ describe('getFolderStructure gitignore', () => {
     (fs.readFileSync as Mock).mockImplementation((p) => {
       const path = p.toString();
       if (path === '/test/project/.gitignore') {
-        return 'ignored.txt\nnode_modules/\n.gemini/\n!/.gemini/config.yaml';
+        return 'ignored.txt\nnode_modules/\n.termichat/\n!/.termichat/config.yaml';
       }
       if (path === '/test/project/.geminiignore') {
-        return 'gem_ignored.txt\nnode_modules/\n.gemini/\n!/.gemini/config.yaml';
+        return 'gem_ignored.txt\nnode_modules/\n.termichat/\n!/.termichat/config.yaml';
       }
       return '';
     });

@@ -97,6 +97,7 @@ describe('Settings Loading and Merging', () => {
       expect(settings.workspace.settings).toEqual({});
       expect(settings.merged).toEqual({
         customThemes: {},
+        llmProviders: {},
         mcpServers: {},
       });
       expect(settings.errors.length).toBe(0);
@@ -129,6 +130,7 @@ describe('Settings Loading and Merging', () => {
       expect(settings.workspace.settings).toEqual({});
       expect(settings.merged).toEqual({
         ...systemSettingsContent,
+        llmProviders: {},
         customThemes: {},
         mcpServers: {},
       });
@@ -162,6 +164,7 @@ describe('Settings Loading and Merging', () => {
       expect(settings.workspace.settings).toEqual({});
       expect(settings.merged).toEqual({
         ...userSettingsContent,
+        llmProviders: {},
         customThemes: {},
         mcpServers: {},
       });
@@ -195,6 +198,7 @@ describe('Settings Loading and Merging', () => {
         ...workspaceSettingsContent,
         customThemes: {},
         mcpServers: {},
+        llmProviders: {},
       });
     });
 
@@ -232,6 +236,7 @@ describe('Settings Loading and Merging', () => {
         contextFileName: 'WORKSPACE_CONTEXT.md',
         customThemes: {},
         mcpServers: {},
+        llmProviders: {},
       });
     });
 
@@ -281,6 +286,7 @@ describe('Settings Loading and Merging', () => {
         allowMCPServers: ['server1', 'server2'],
         customThemes: {},
         mcpServers: {},
+        llmProviders: {},
       });
     });
 
@@ -394,6 +400,7 @@ describe('Settings Loading and Merging', () => {
       expect(settings.merged.telemetry).toBeUndefined();
       expect(settings.merged.customThemes).toEqual({});
       expect(settings.merged.mcpServers).toEqual({});
+      expect(settings.merged.llmProviders).toEqual({});
     });
 
     it('should merge MCP servers correctly, with workspace taking precedence', () => {
@@ -560,6 +567,7 @@ describe('Settings Loading and Merging', () => {
       expect(settings.merged).toEqual({
         customThemes: {},
         mcpServers: {},
+        llmProviders: {},
       });
 
       // Check that error objects are populated in settings.errors
@@ -954,6 +962,7 @@ describe('Settings Loading and Merging', () => {
           ...systemSettingsContent,
           customThemes: {},
           mcpServers: {},
+          llmProviders: {},
         });
       });
     });
