@@ -26,7 +26,7 @@ export const Tips: React.FC<TipsProps> = ({ config }) => {
         <Text color={Colors.Foreground}>
           3. Create{' '}
           <Text bold color={Colors.AccentPurple}>
-            TERMI.md
+            YAK.md
           </Text>{' '}
           files to customize your interactions with Gemini.
         </Text>

@@ -1,12 +1,12 @@
-# YakChat
+# Yak
 
-[![YakChat CI](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml/badge.svg)](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml)
+[![Yak CI](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml/badge.svg)](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml)
 
-![YakChat Screenshot](./docs/assets/yakchat-screenshot.png)
+![Yak Screenshot](./docs/assets/yakchat-screenshot.png)
 
-**YakChat** - AI Chat in Your Terminal 🚀
+**Yak** - AI Chat in Your Terminal 🚀
 
-YakChat is a powerful AI chat client that brings Google Gemini's conversational AI directly to your terminal. Built on the solid foundation of Gemini CLI, YakChat is optimized specifically for seamless AI conversations with a beautiful terminal interface.
+Yak is a powerful AI chat client that brings Google Gemini's conversational AI directly to your terminal. Built on the solid foundation of Gemini CLI, Yak is optimized specifically for seamless AI conversations with a beautiful terminal interface.
 
 ## ✨ Features
 
@@ -24,21 +24,21 @@ YakChat is a powerful AI chat client that brings Google Gemini's conversational 
 ### Install with npm
 
 ```bash
-npm install -g yakchat
-yakchat
+npm install -g yak-cli
+yak
 ```
 
 ### Install with Homebrew
 
 ```bash
-brew install yakchat
-yakchat
+brew install yak-cli
+yak
 ```
 
 ### Try without installing
 
 ```bash
-npx yakchat
+npx yak-cli
 ```
 
 ## 🎯 Perfect for
@@ -51,7 +51,7 @@ npx yakchat
 
 ## 🎨 Beautiful Themes
 
-YakChat comes with 16 built-in themes:
+Yak comes with 16 built-in themes:
 
 - Default Light/Dark
 - GitHub Light/Dark
@@ -90,7 +90,7 @@ Change themes instantly with `/theme` command!
 
 ## 🤝 Contributing
 
-YakChat is open source! We welcome contributions from the community.
+Yak is open source! We welcome contributions from the community.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -102,11 +102,11 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
 ## 📄 License
 
-YakChat is licensed under the [Apache License 2.0](./LICENSE).
+Yak is licensed under the [Apache License 2.0](./LICENSE).
 
 ## 🙏 Acknowledgments
 
-YakChat is built upon the excellent foundation of [Google's Gemini CLI](https://github.com/google-gemini/gemini-cli). We thank the Gemini CLI team for creating such a robust platform for AI interactions.
+Yak is built upon the excellent foundation of [Google's Gemini CLI](https://github.com/google-gemini/gemini-cli). We thank the Gemini CLI team for creating such a robust platform for AI interactions.
 
 ---
 
