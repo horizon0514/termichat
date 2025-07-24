@@ -1,5 +1,5 @@
 {
-  "name": "yakchat",
+  "name": "yak",
   "version": "0.1.0",
   "description": "YakChat - AI Chat Client in Your Terminal",
   "engines": {
@@ -46,7 +46,7 @@
     "clean": "node scripts/clean.js"
   },
   "bin": {
-    "yakchat": "bundle/yakchat.js"
+    "yak": "bundle/yak.js"
   },
   "files": [
     "bundle/",
