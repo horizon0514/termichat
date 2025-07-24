@@ -1,6 +1,6 @@
 {
   "name": "yak",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "YakChat - AI Chat Client in Your Terminal",
   "engines": {
     "node": ">=20.0.0"
