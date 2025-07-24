@@ -22,10 +22,10 @@ import {
   type EditorType,
   checkHasEditorType,
   allowEditorTypeInSandbox,
-} from 'yakchat-core';
+} from 'yak-core';
 
-vi.mock('yakchat-core', async () => {
-  const actual = await vi.importActual('yakchat-core');
+vi.mock('yak-core', async () => {
+  const actual = await vi.importActual('yak-core');
   return {
     ...actual,
     checkHasEditorType: vi.fn(() => true),

@@ -14,7 +14,7 @@ import {
   SessionMetrics,
 } from './SessionContext.js';
 import { describe, it, expect, vi } from 'vitest';
-import { uiTelemetryService } from 'yakchat-core';
+import { uiTelemetryService } from 'yak-core';
 
 /**
  * A test harness component that uses the hook and exposes the context value

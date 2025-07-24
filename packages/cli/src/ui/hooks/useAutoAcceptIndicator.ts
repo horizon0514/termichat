@@ -6,7 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { useInput } from 'ink';
-import { ApprovalMode, type Config } from 'yakchat-core';
+import { ApprovalMode, type Config } from 'yak-core';
 
 export interface UseAutoAcceptIndicatorArgs {
   config: Config;

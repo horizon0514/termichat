@@ -14,7 +14,7 @@ import {
   ToolExecuteConfirmationDetails,
   ToolMcpConfirmationDetails,
   Config,
-} from 'yakchat-core';
+} from 'yak-core';
 import {
   RadioButtonSelect,
   RadioSelectItem,

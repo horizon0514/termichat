@@ -17,7 +17,7 @@ import {
   validateLLMProviderConfig,
   PROVIDER_DISPLAY_NAMES,
   DEFAULT_PROVIDER_BASE_URLS,
-} from 'yakchat-core';
+} from 'yak-core';
 
 export interface ProviderDialogProps {
   /** Called when provider is saved */

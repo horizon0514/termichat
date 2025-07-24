@@ -5,7 +5,7 @@
  */
 
 import { Message, MessageType } from '../types.js';
-import { Config } from 'yakchat-core';
+import { Config } from 'yak-core';
 import { LoadedSettings } from '../../config/settings.js';
 
 export function createShowMemoryAction(

@@ -21,7 +21,7 @@ import {
   ToolCall,
   Status as CoreStatus,
   EditorType,
-} from 'yakchat-core';
+} from 'yak-core';
 import { useCallback, useState, useMemo } from 'react';
 import {
   HistoryItemToolGroup,

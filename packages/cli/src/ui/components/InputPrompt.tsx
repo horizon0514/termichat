@@ -18,7 +18,7 @@ import { useCompletion } from '../hooks/useCompletion.js';
 import { useKeypress, Key } from '../hooks/useKeypress.js';
 import { isAtCommand, isSlashCommand } from '../utils/commandUtils.js';
 import { CommandContext, SlashCommand } from '../commands/types.js';
-import { Config } from 'yakchat-core';
+import { Config } from 'yak-core';
 import {
   clipboardHasImage,
   saveClipboardImage,

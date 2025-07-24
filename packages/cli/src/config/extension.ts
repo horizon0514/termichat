@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { MCPServerConfig, GeminiCLIExtension } from 'yakchat-core';
+import { MCPServerConfig, GeminiCLIExtension } from 'yak-core';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';

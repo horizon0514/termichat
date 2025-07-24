@@ -7,7 +7,7 @@
 import React from 'react';
 import { Text } from 'ink';
 import { Colors } from '../colors.js';
-import { type OpenFiles, type MCPServerConfig } from 'yakchat-core';
+import { type OpenFiles, type MCPServerConfig } from 'yak-core';
 import path from 'path';
 
 interface ContextSummaryDisplayProps {

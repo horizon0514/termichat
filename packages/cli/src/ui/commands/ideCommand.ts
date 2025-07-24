@@ -12,7 +12,7 @@ import {
   IDE_SERVER_NAME,
   MCPDiscoveryState,
   MCPServerStatus,
-} from 'yakchat-core';
+} from 'yak-core';
 import {
   CommandContext,
   SlashCommand,

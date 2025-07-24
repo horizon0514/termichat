@@ -11,7 +11,7 @@ import {
   allowEditorTypeInSandbox,
   checkHasEditorType,
   EditorType,
-} from 'yakchat-core';
+} from 'yak-core';
 
 interface UseEditorSettingsReturn {
   isEditorDialogOpen: boolean;

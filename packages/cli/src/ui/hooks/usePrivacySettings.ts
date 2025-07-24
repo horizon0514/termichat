@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Config, CodeAssistServer, UserTierId } from 'yakchat-core';
+import { Config, CodeAssistServer, UserTierId } from 'yak-core';
 
 export interface PrivacyState {
   isLoading: boolean;

@@ -12,7 +12,7 @@ import {
   type SlashCommandActionReturn,
   CommandKind,
 } from './types.js';
-import { Config } from 'yakchat-core';
+import { Config } from 'yak-core';
 
 async function restoreAction(
   context: CommandContext,

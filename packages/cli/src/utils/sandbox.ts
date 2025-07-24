@@ -15,7 +15,7 @@ import {
   SETTINGS_DIRECTORY_NAME,
 } from '../config/settings.js';
 import { promisify } from 'util';
-import { SandboxConfig } from 'yakchat-core';
+import { SandboxConfig } from 'yak-core';
 
 const execAsync = promisify(exec);
 

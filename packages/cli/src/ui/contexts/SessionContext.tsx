@@ -13,7 +13,7 @@ import React, {
   useEffect,
 } from 'react';
 
-import { uiTelemetryService, SessionMetrics, ModelMetrics } from 'yakchat-core';
+import { uiTelemetryService, SessionMetrics, ModelMetrics } from 'yak-core';
 
 // --- Interface Definitions ---
 

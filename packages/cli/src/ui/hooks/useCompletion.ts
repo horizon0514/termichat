@@ -16,7 +16,7 @@ import {
   Config,
   FileDiscoveryService,
   DEFAULT_FILE_FILTERING_OPTIONS,
-} from 'yakchat-core';
+} from 'yak-core';
 import {
   MAX_SUGGESTIONS_TO_SHOW,
   Suggestion,

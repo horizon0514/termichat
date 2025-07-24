@@ -11,7 +11,7 @@ import {
   UserTierId,
   DEFAULT_GEMINI_FLASH_MODEL,
   isProQuotaExceededError,
-} from 'yakchat-core';
+} from 'yak-core';
 
 describe('parseAndFormatApiError', () => {
   const _enterpriseMessage =

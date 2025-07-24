@@ -7,7 +7,7 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { ideCommand } from './ideCommand.js';
 import { type CommandContext } from './types.js';
-import { type Config } from 'yakchat-core';
+import { type Config } from 'yak-core';
 import * as child_process from 'child_process';
 import { glob } from 'glob';
 
@@ -17,12 +17,12 @@ import {
   IDE_SERVER_NAME,
   MCPDiscoveryState,
   MCPServerStatus,
-} from 'yakchat-core';
+} from 'yak-core';
 
 vi.mock('child_process');
 vi.mock('glob');
-vi.mock('yakchat-core', async (importOriginal) => {
-  const original = await importOriginal<typeof import('yakchat-core')>();
+vi.mock('yak-core', async (importOriginal) => {
+  const original = await importOriginal<typeof import('yak-core')>();
   return {
     ...original,
     getMCPServerStatus: vi.fn(),

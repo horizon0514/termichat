@@ -25,7 +25,7 @@ import {
   Status as ToolCallStatusType,
   ApprovalMode,
   Icon,
-} from 'yakchat-core';
+} from 'yak-core';
 import {
   HistoryItemWithoutId,
   ToolCallStatus,
@@ -33,8 +33,8 @@ import {
 } from '../types.js';
 
 // Mocks
-vi.mock('yakchat-core', async () => {
-  const actual = await vi.importActual('yakchat-core');
+vi.mock('yak-core', async () => {
+  const actual = await vi.importActual('yak-core');
   return {
     ...actual,
     ToolRegistry: vi.fn(),

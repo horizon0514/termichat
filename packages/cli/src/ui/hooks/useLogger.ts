@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { sessionId, Logger } from 'yakchat-core';
+import { sessionId, Logger } from 'yak-core';
 
 /**
  * Hook to manage the logger instance.

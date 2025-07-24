@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AuthType } from 'yakchat-core';
+import { AuthType } from 'yak-core';
 import { vi } from 'vitest';
 import { validateAuthMethod } from './auth.js';
 

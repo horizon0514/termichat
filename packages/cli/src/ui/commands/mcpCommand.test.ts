@@ -13,7 +13,7 @@ import {
   getMCPServerStatus,
   getMCPDiscoveryState,
   DiscoveredMCPTool,
-} from 'yakchat-core';
+} from 'yak-core';
 import open from 'open';
 import { MessageActionReturn } from './types.js';
 import { Type, CallableTool } from '@google/genai';
@@ -23,8 +23,8 @@ vi.mock('open', () => ({
   default: vi.fn(),
 }));
 
-vi.mock('yakchat-core', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('yakchat-core')>();
+vi.mock('yak-core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('yak-core')>();
   return {
     ...actual,
     getMCPServerStatus: vi.fn(),

@@ -8,7 +8,7 @@ import {
   allowEditorTypeInSandbox,
   checkHasEditorType,
   type EditorType,
-} from 'yakchat-core';
+} from 'yak-core';
 
 export interface EditorDisplay {
   name: string;

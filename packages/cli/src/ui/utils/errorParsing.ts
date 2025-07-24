@@ -13,7 +13,7 @@ import {
   isGenericQuotaExceededError,
   isApiError,
   isStructuredError,
-} from 'yakchat-core';
+} from 'yak-core';
 
 // Free Tier message functions
 const getRateLimitErrorMessageGoogleFree = (

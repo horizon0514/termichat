@@ -7,7 +7,7 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 import { Colors } from '../colors.js';
-import { ApprovalMode } from 'yakchat-core';
+import { ApprovalMode } from 'yak-core';
 
 interface AutoAcceptIndicatorProps {
   approvalMode: ApprovalMode;

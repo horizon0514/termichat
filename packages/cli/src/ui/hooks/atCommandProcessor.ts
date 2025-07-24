@@ -12,7 +12,7 @@ import {
   getErrorMessage,
   isNodeError,
   unescapePath,
-} from 'yakchat-core';
+} from 'yak-core';
 import {
   HistoryItem,
   IndividualToolCallDisplay,

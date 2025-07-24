@@ -11,7 +11,7 @@ import {
   ToolRegistry,
   shutdownTelemetry,
   isTelemetrySdkInitialized,
-} from 'yakchat-core';
+} from 'yak-core';
 import {
   Content,
   Part,

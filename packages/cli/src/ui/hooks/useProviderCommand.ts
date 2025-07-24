@@ -5,7 +5,7 @@
  */
 
 import { useState, useCallback } from 'react';
-import { LLMProviderConfig } from 'yakchat-core';
+import { LLMProviderConfig } from 'yak-core';
 import { LoadedSettings, SettingScope } from '../../config/settings.js';
 
 export interface UseProviderCommandReturn {

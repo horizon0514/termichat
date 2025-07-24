@@ -16,7 +16,7 @@ import {
   getMCPServerStatus,
   MCPDiscoveryState,
   MCPServerStatus,
-} from 'yakchat-core';
+} from 'yak-core';
 import open from 'open';
 
 const COLOR_GREEN = '\u001b[32m';
