@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Box, Text } from 'ink';
+import chalk from 'chalk';
 import { Colors } from '../../colors.js';
 import { useKeypress } from '../../hooks/useKeypress.js';
 
@@ -61,6 +62,10 @@ export const InputField: React.FC<InputFieldProps> = ({
     setIsActive(isFocused);
   }, [isFocused]);
 
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
   const validateValue = (newValue: string): string | null => {
     // Required field validation
     if (required && newValue.trim() === '') {
@@ -104,6 +109,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 
     setError(null);
     onSubmit?.(value);
+    setValue('');
   };
 
   const handleCancel = () => {
@@ -127,8 +133,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         const pasteContent = key.sequence;
         const newValue = value + pasteContent;
         // Apply maxWidth limit, truncating if necessary
-        const finalValue =
-          newValue.length <= maxWidth ? newValue : newValue.slice(0, maxWidth);
+        const finalValue = newValue.length <= maxWidth ? newValue : newValue.slice(0, maxWidth);
         handleValueChange(finalValue);
       } else if (key.sequence && !key.ctrl && !key.meta) {
         // Handle all text input - similar to text-buffer logic
@@ -147,9 +152,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       ? '*'.repeat(value.length)
       : value;
 
-  const displayText = displayValue || placeholder;
-  const textColor = value ? Colors.Foreground : Colors.Gray;
-
+  const displayPlaceholder = placeholder ? `  ${placeholder}` : '';
   return (
     <Box flexDirection="column">
       {/* Label */}
@@ -169,10 +172,21 @@ export const InputField: React.FC<InputFieldProps> = ({
         paddingX={1}
         width={Math.min(maxWidth + 2, 60)}
       >
-        <Text color={textColor}>
-          {displayText}
-          {isActive && <Text color={Colors.AccentBlue}>█</Text>}
-        </Text>
+        {value.length === 0 && displayPlaceholder ? (
+          isActive ? (
+            <Text>
+              {chalk.inverse(displayPlaceholder.slice(0, 1))}
+              <Text color={Colors.Gray}>{displayPlaceholder.slice(1)}</Text>
+            </Text>
+          ) : (
+            <Text color={Colors.Gray}>{displayPlaceholder}</Text>
+          )
+        ) : (
+          <Text color={Colors.Foreground}>
+            {displayValue}
+            {isActive && <Text color={Colors.AccentBlue}>█</Text>}
+          </Text>
+        )}
       </Box>
 
       {/* Error Message */}

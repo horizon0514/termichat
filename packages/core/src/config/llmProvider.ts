@@ -8,7 +8,7 @@
  * Supported LLM Provider types
  */
 export enum LLMProviderType {
-  OPENROUTER = 'openrouter',
+  OPENROUTER = 'OpenRouter',
 }
 
 /**

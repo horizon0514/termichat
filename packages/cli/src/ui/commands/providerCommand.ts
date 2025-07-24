@@ -29,7 +29,7 @@ const listSubCommand: SlashCommand = {
       context.ui.addItem(
         {
           type: MessageType.INFO,
-          text: 'No LLM providers configured.\n\nUse "/provider add <name>" to add a new provider.',
+          text: 'No LLM providers configured.\n\nUse "/provider add" to add a new provider.',
         },
         Date.now(),
       );
@@ -49,7 +49,7 @@ const listSubCommand: SlashCommand = {
     });
 
     message += 'Commands:\n';
-    message += '  /provider add <name>      - Add a new provider\n';
+    message += '  /provider add     - Add a new provider\n';
     message += '  /provider edit <name>     - Edit an existing provider\n';
     message += '  /provider remove <name>   - Remove a provider\n';
     message += '  /provider set-default <name> - Set default provider\n';
@@ -75,25 +75,12 @@ const addSubCommand: SlashCommand = {
     context: CommandContext,
     args: string,
   ): Promise<SlashCommandActionReturn | void> => {
-    const providerName = args.trim();
-
-    if (!providerName) {
+    if (args.trim()) {
       return {
         type: 'message',
         messageType: 'error',
         content:
-          'Usage: /provider add <name>\n\nExample: /provider add my-openrouter',
-      };
-    }
-
-    const existingProviders =
-      context.services.settings.merged.llmProviders || {};
-
-    if (existingProviders[providerName]) {
-      return {
-        type: 'message',
-        messageType: 'error',
-        content: `Provider "${providerName}" already exists. Use "/provider edit ${providerName}" to modify it.`,
+          'Usage: /provider add\n\nExample: /provider add',
       };
     }
 
@@ -101,7 +88,7 @@ const addSubCommand: SlashCommand = {
     context.ui.addItem(
       {
         type: MessageType.INFO,
-        text: `Adding new OpenRouter provider: "${providerName}"\n\nPlease provide the following information:`,
+        text: `Adding new LLM provider\n\nPlease provide the following information:`,
       },
       Date.now(),
     );
