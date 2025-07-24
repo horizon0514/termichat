@@ -133,7 +133,8 @@ export const InputField: React.FC<InputFieldProps> = ({
         const pasteContent = key.sequence;
         const newValue = value + pasteContent;
         // Apply maxWidth limit, truncating if necessary
-        const finalValue = newValue.length <= maxWidth ? newValue : newValue.slice(0, maxWidth);
+        const finalValue =
+          newValue.length <= maxWidth ? newValue : newValue.slice(0, maxWidth);
         handleValueChange(finalValue);
       } else if (key.sequence && !key.ctrl && !key.meta) {
         // Handle all text input - similar to text-buffer logic

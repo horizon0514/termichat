@@ -131,7 +131,7 @@ interface Settings {
 
 ```
 /provider                    # 显示当前配置的providers
-/provider add <name>         # 添加新的provider配置
+/provider add                # 添加新的provider配置
 /provider edit <name>        # 编辑现有provider配置
 /provider remove <name>      # 删除provider配置
 /provider set-default <name> # 设置默认provider
@@ -195,7 +195,7 @@ interface Settings {
 - **Rationale**: 创建独立的模块定义LLM provider相关的类型和常量
 - **内容**:
   - `LLMProviderConfig` 接口定义
-  - `LLMProviderType` 枚举（当前包含 OPENROUTER）
+  - `LLMProviderType` 枚举（当前包含 OPENROUTER, OPENAI_COMPATIBLE）
   - `DEFAULT_OPENROUTER_BASE_URL` 常量
   - provider配置验证函数 `validateLLMProviderConfig`
   - 默认配置生成函数 `createDefaultProviderConfig`

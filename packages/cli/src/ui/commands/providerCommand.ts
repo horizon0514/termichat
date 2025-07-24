@@ -79,8 +79,7 @@ const addSubCommand: SlashCommand = {
       return {
         type: 'message',
         messageType: 'error',
-        content:
-          'Usage: /provider add\n\nExample: /provider add',
+        content: 'Usage: /provider add\n\nExample: /provider add',
       };
     }
 

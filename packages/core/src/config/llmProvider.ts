@@ -8,7 +8,8 @@
  * Supported LLM Provider types
  */
 export enum LLMProviderType {
-  OPENROUTER = 'OpenRouter',
+  OPENROUTER = 'openrouter',
+  OPENAI_COMPATIBLE = 'openai-compatible', // openai compatible providers
 }
 
 /**
@@ -36,6 +37,7 @@ export interface LLMProviderConfig {
  */
 export const DEFAULT_PROVIDER_BASE_URLS: Record<LLMProviderType, string> = {
   [LLMProviderType.OPENROUTER]: 'https://openrouter.ai/api/v1',
+  [LLMProviderType.OPENAI_COMPATIBLE]: '',
 };
 
 /**
@@ -43,6 +45,7 @@ export const DEFAULT_PROVIDER_BASE_URLS: Record<LLMProviderType, string> = {
  */
 export const PROVIDER_DISPLAY_NAMES: Record<LLMProviderType, string> = {
   [LLMProviderType.OPENROUTER]: 'OpenRouter',
+  [LLMProviderType.OPENAI_COMPATIBLE]: 'OpenAI Compatible',
 };
 
 /**
