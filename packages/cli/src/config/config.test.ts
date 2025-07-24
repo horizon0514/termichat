@@ -30,8 +30,7 @@ vi.mock('read-package-up', () => ({
 }));
 
 vi.mock('yak-core', async () => {
-  const actualServer =
-    await vi.importActual<typeof ServerConfig>('yak-core');
+  const actualServer = await vi.importActual<typeof ServerConfig>('yak-core');
   return {
     ...actualServer,
     loadEnvironment: vi.fn(),

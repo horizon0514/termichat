@@ -7,12 +7,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { PartListUnion, PartUnion } from '@google/genai';
-import {
-  Config,
-  getErrorMessage,
-  isNodeError,
-  unescapePath,
-} from 'yak-core';
+import { Config, getErrorMessage, isNodeError, unescapePath } from 'yak-core';
 import {
   HistoryItem,
   IndividualToolCallDisplay,
