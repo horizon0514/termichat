@@ -1,6 +1,6 @@
 # Yak
 
-[![Yak CI](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml/badge.svg)](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml)
+[![Yak CI](https://github.com/horizon0514/yak/actions/workflows/ci.yml/badge.svg)](https://github.com/horizon0514/yak/actions/workflows/ci.yml)
 
 ![Yak Screenshot](./docs/assets/yakchat-screenshot.png)
 
