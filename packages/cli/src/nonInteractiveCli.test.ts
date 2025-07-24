@@ -12,9 +12,8 @@ import { GenerateContentResponse, Part, FunctionCall } from '@google/genai';
 
 // Mock dependencies
 vi.mock('termichat-core', async () => {
-  const actualCore = await vi.importActual<
-    typeof import('termichat-core')
-  >('termichat-core');
+  const actualCore =
+    await vi.importActual<typeof import('termichat-core')>('termichat-core');
   return {
     ...actualCore,
     GeminiClient: vi.fn(),

@@ -9,6 +9,7 @@ import { Box, Text, useInput } from 'ink';
 import { Colors } from '../colors.js';
 import { InputField, InputFieldType } from './shared/InputField.js';
 import { RadioButtonSelect } from './shared/RadioButtonSelect.js';
+import { useBracketedPaste } from '../hooks/useBracketedPaste.js';
 import {
   LLMProviderConfig,
   LLMProviderType,
@@ -43,11 +44,13 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
   initialConfig = {},
   isEdit = false,
 }) => {
+  useBracketedPaste(); // Enable paste functionality
+
   const [currentStep, setCurrentStep] = useState<DialogStep>(
-    isEdit ? DialogStep.API_KEY : DialogStep.PROVIDER_TYPE
+    isEdit ? DialogStep.API_KEY : DialogStep.PROVIDER_TYPE,
   );
   const [providerType, setProviderType] = useState<LLMProviderType>(
-    initialConfig.type || LLMProviderType.OPENROUTER
+    initialConfig.type || LLMProviderType.OPENROUTER,
   );
   const [providerName, setProviderName] = useState(initialConfig.name || '');
   const [apiKey, setApiKey] = useState(initialConfig.apiKey || '');
@@ -55,10 +58,12 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   // Available provider types
-  const providerTypeItems = Object.entries(PROVIDER_DISPLAY_NAMES).map(([type, displayName]) => ({
-    label: displayName,
-    value: type as LLMProviderType,
-  }));
+  const providerTypeItems = Object.entries(PROVIDER_DISPLAY_NAMES).map(
+    ([type, displayName]) => ({
+      label: displayName,
+      value: type as LLMProviderType,
+    }),
+  );
 
   const handleProviderTypeSelect = (selectedType: LLMProviderType) => {
     setProviderType(selectedType);
@@ -97,7 +102,7 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       providerType,
       providerName,
       apiKey,
-      baseUrl || undefined
+      baseUrl || undefined,
     );
 
     const validationError = validateLLMProviderConfig(config);
@@ -138,7 +143,9 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
   useInput((input, key) => {
     if (key.backspace && key.ctrl) {
       // Ctrl+Backspace to go back
-      if (currentStep !== (isEdit ? DialogStep.API_KEY : DialogStep.PROVIDER_TYPE)) {
+      if (
+        currentStep !== (isEdit ? DialogStep.API_KEY : DialogStep.PROVIDER_TYPE)
+      ) {
         handleBack();
       }
     }
@@ -149,11 +156,15 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       case DialogStep.PROVIDER_TYPE:
         return (
           <Box flexDirection="column">
-            <Text bold color={Colors.AccentPurple}>Select Provider Type:</Text>
+            <Text bold color={Colors.AccentPurple}>
+              Select Provider Type:
+            </Text>
             <Box marginTop={1}>
               <RadioButtonSelect
                 items={providerTypeItems}
-                initialIndex={providerTypeItems.findIndex(item => item.value === providerType)}
+                initialIndex={providerTypeItems.findIndex(
+                  (item) => item.value === providerType,
+                )}
                 onSelect={handleProviderTypeSelect}
                 isFocused={true}
               />
@@ -164,10 +175,13 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       case DialogStep.PROVIDER_NAME:
         return (
           <Box flexDirection="column">
-            <Text bold color={Colors.AccentPurple}>Provider Name:</Text>
+            <Text bold color={Colors.AccentPurple}>
+              Provider Name:
+            </Text>
             <Box marginTop={1}>
               <Text color={Colors.Gray}>
-                Choose a unique name for this {PROVIDER_DISPLAY_NAMES[providerType]} provider
+                Choose a unique name for this{' '}
+                {PROVIDER_DISPLAY_NAMES[providerType]} provider
               </Text>
             </Box>
             <Box marginTop={1}>
@@ -192,7 +206,9 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       case DialogStep.API_KEY:
         return (
           <Box flexDirection="column">
-            <Text bold color={Colors.AccentPurple}>API Key:</Text>
+            <Text bold color={Colors.AccentPurple}>
+              API Key:
+            </Text>
             <Box marginTop={1}>
               <Text color={Colors.Gray}>
                 Enter your {PROVIDER_DISPLAY_NAMES[providerType]} API key
@@ -215,13 +231,16 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       case DialogStep.BASE_URL:
         return (
           <Box flexDirection="column">
-            <Text bold color={Colors.AccentPurple}>Base URL (Optional):</Text>
+            <Text bold color={Colors.AccentPurple}>
+              Base URL (Optional):
+            </Text>
             <Box marginTop={1}>
               <Text color={Colors.Gray}>
                 Custom base URL for {PROVIDER_DISPLAY_NAMES[providerType]} API
               </Text>
               <Text color={Colors.Gray}>
-                Leave empty to use default: {DEFAULT_PROVIDER_BASE_URLS[providerType]}
+                Leave empty to use default:{' '}
+                {DEFAULT_PROVIDER_BASE_URLS[providerType]}
               </Text>
             </Box>
             <Box marginTop={1}>
@@ -241,23 +260,35 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       case DialogStep.CONFIRMATION:
         return (
           <Box flexDirection="column">
-            <Text bold color={Colors.AccentPurple}>Confirm Configuration:</Text>
+            <Text bold color={Colors.AccentPurple}>
+              Confirm Configuration:
+            </Text>
             <Box marginTop={1} flexDirection="column">
               <Box>
-                <Text bold color={Colors.LightBlue}>Provider Type: </Text>
+                <Text bold color={Colors.LightBlue}>
+                  Provider Type:{' '}
+                </Text>
                 <Text>{PROVIDER_DISPLAY_NAMES[providerType]}</Text>
               </Box>
               <Box>
-                <Text bold color={Colors.LightBlue}>Name: </Text>
+                <Text bold color={Colors.LightBlue}>
+                  Name:{' '}
+                </Text>
                 <Text>{providerName}</Text>
               </Box>
               <Box>
-                <Text bold color={Colors.LightBlue}>API Key: </Text>
+                <Text bold color={Colors.LightBlue}>
+                  API Key:{' '}
+                </Text>
                 <Text>{'*'.repeat(8)}</Text>
               </Box>
               <Box>
-                <Text bold color={Colors.LightBlue}>Base URL: </Text>
-                <Text>{baseUrl || DEFAULT_PROVIDER_BASE_URLS[providerType]}</Text>
+                <Text bold color={Colors.LightBlue}>
+                  Base URL:{' '}
+                </Text>
+                <Text>
+                  {baseUrl || DEFAULT_PROVIDER_BASE_URLS[providerType]}
+                </Text>
               </Box>
             </Box>
             <Box marginTop={2}>
@@ -299,9 +330,7 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       </Box>
 
       {/* Content */}
-      <Box flexDirection="column">
-        {renderStep()}
-      </Box>
+      <Box flexDirection="column">{renderStep()}</Box>
 
       {/* Error */}
       {error && (
@@ -311,14 +340,15 @@ export const ProviderDialog: React.FC<ProviderDialogProps> = ({
       )}
 
       {/* Navigation hint */}
-      {currentStep !== (isEdit ? DialogStep.API_KEY : DialogStep.PROVIDER_TYPE) && 
-       currentStep !== DialogStep.CONFIRMATION && (
-        <Box marginTop={1}>
-          <Text color={Colors.Gray}>
-            Use Ctrl+Backspace to go back, Esc to cancel
-          </Text>
-        </Box>
-      )}
+      {currentStep !==
+        (isEdit ? DialogStep.API_KEY : DialogStep.PROVIDER_TYPE) &&
+        currentStep !== DialogStep.CONFIRMATION && (
+          <Box marginTop={1}>
+            <Text color={Colors.Gray}>
+              Use Ctrl+Backspace to go back, Esc to cancel
+            </Text>
+          </Box>
+        )}
     </Box>
   );
-}; 
+};

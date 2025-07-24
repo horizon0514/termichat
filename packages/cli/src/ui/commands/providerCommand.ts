@@ -11,9 +11,7 @@ import {
   CommandContext,
 } from './types.js';
 import { MessageType } from '../types.js';
-import {
-  PROVIDER_DISPLAY_NAMES,
-} from 'termichat-core';
+import { PROVIDER_DISPLAY_NAMES } from 'termichat-core';
 import { SettingScope } from '../../config/settings.js';
 
 /**
@@ -43,7 +41,7 @@ const listSubCommand: SlashCommand = {
       const isDefault = name === defaultProvider;
       const status = config.enabled ? '✓' : '✗';
       const defaultMark = isDefault ? ' (default)' : '';
-      
+
       message += `  ${status} \u001b[36m${config.displayName}\u001b[0m (${name})${defaultMark}\n`;
       message += `    Type: ${config.type}\n`;
       message += `    Base URL: ${config.baseUrl || 'Default'}\n`;
@@ -73,19 +71,24 @@ const addSubCommand: SlashCommand = {
   name: 'add',
   description: 'Add a new LLM provider',
   kind: CommandKind.BUILT_IN,
-  action: async (context: CommandContext, args: string): Promise<SlashCommandActionReturn | void> => {
+  action: async (
+    context: CommandContext,
+    args: string,
+  ): Promise<SlashCommandActionReturn | void> => {
     const providerName = args.trim();
-    
+
     if (!providerName) {
       return {
         type: 'message',
         messageType: 'error',
-        content: 'Usage: /provider add <name>\n\nExample: /provider add my-openrouter',
+        content:
+          'Usage: /provider add <name>\n\nExample: /provider add my-openrouter',
       };
     }
 
-    const existingProviders = context.services.settings.merged.llmProviders || {};
-    
+    const existingProviders =
+      context.services.settings.merged.llmProviders || {};
+
     if (existingProviders[providerName]) {
       return {
         type: 'message',
@@ -109,7 +112,10 @@ const addSubCommand: SlashCommand = {
       dialog: 'provider',
     };
   },
-  completion: async (context: CommandContext, partialArg: string): Promise<string[]> => {
+  completion: async (
+    context: CommandContext,
+    partialArg: string,
+  ): Promise<string[]> => {
     // Could provide suggestions for common provider names
     if (partialArg.length === 0) {
       return ['openrouter-primary', 'openrouter-backup'];
@@ -125,19 +131,24 @@ const editSubCommand: SlashCommand = {
   name: 'edit',
   description: 'Edit an existing LLM provider',
   kind: CommandKind.BUILT_IN,
-  action: async (context: CommandContext, args: string): Promise<SlashCommandActionReturn | void> => {
+  action: async (
+    context: CommandContext,
+    args: string,
+  ): Promise<SlashCommandActionReturn | void> => {
     const providerName = args.trim();
-    
+
     if (!providerName) {
       return {
         type: 'message',
         messageType: 'error',
-        content: 'Usage: /provider edit <name>\n\nUse "/provider list" to see available providers.',
+        content:
+          'Usage: /provider edit <name>\n\nUse "/provider list" to see available providers.',
       };
     }
 
-    const existingProviders = context.services.settings.merged.llmProviders || {};
-    
+    const existingProviders =
+      context.services.settings.merged.llmProviders || {};
+
     if (!existingProviders[providerName]) {
       return {
         type: 'message',
@@ -152,16 +163,19 @@ const editSubCommand: SlashCommand = {
       dialog: 'provider-list',
     };
   },
-  completion: async (context: CommandContext, partialArg: string): Promise<string[]> => {
+  completion: async (
+    context: CommandContext,
+    partialArg: string,
+  ): Promise<string[]> => {
     const providers = context.services.settings.merged.llmProviders || {};
     const providerNames = Object.keys(providers);
-    
+
     if (partialArg.length === 0) {
       return providerNames;
     }
-    
-    return providerNames.filter(name => 
-      name.toLowerCase().startsWith(partialArg.toLowerCase())
+
+    return providerNames.filter((name) =>
+      name.toLowerCase().startsWith(partialArg.toLowerCase()),
     );
   },
 };
@@ -173,19 +187,24 @@ const removeSubCommand: SlashCommand = {
   name: 'remove',
   description: 'Remove an LLM provider',
   kind: CommandKind.BUILT_IN,
-  action: async (context: CommandContext, args: string): Promise<SlashCommandActionReturn | void> => {
+  action: async (
+    context: CommandContext,
+    args: string,
+  ): Promise<SlashCommandActionReturn | void> => {
     const providerName = args.trim();
-    
+
     if (!providerName) {
       return {
         type: 'message',
         messageType: 'error',
-        content: 'Usage: /provider remove <name>\n\nUse "/provider list" to see available providers.',
+        content:
+          'Usage: /provider remove <name>\n\nUse "/provider list" to see available providers.',
       };
     }
 
-    const existingProviders = context.services.settings.merged.llmProviders || {};
-    
+    const existingProviders =
+      context.services.settings.merged.llmProviders || {};
+
     if (!existingProviders[providerName]) {
       return {
         type: 'message',
@@ -203,16 +222,25 @@ const removeSubCommand: SlashCommand = {
     delete updatedProviders[providerName];
 
     // Update the settings
-    context.services.settings.setValue(SettingScope.User, 'llmProviders', updatedProviders);
+    context.services.settings.setValue(
+      SettingScope.User,
+      'llmProviders',
+      updatedProviders,
+    );
 
     // If this was the default provider, clear the default
     if (isDefault) {
-      context.services.settings.setValue(SettingScope.User, 'defaultLLMProvider', undefined);
+      context.services.settings.setValue(
+        SettingScope.User,
+        'defaultLLMProvider',
+        undefined,
+      );
     }
 
     let message = `Provider "${providerName}" removed successfully.`;
     if (isDefault) {
-      message += '\n\nThis was your default provider. Use "/provider set-default <name>" to set a new default.';
+      message +=
+        '\n\nThis was your default provider. Use "/provider set-default <name>" to set a new default.';
     }
 
     context.ui.addItem(
@@ -223,16 +251,19 @@ const removeSubCommand: SlashCommand = {
       Date.now(),
     );
   },
-  completion: async (context: CommandContext, partialArg: string): Promise<string[]> => {
+  completion: async (
+    context: CommandContext,
+    partialArg: string,
+  ): Promise<string[]> => {
     const providers = context.services.settings.merged.llmProviders || {};
     const providerNames = Object.keys(providers);
-    
+
     if (partialArg.length === 0) {
       return providerNames;
     }
-    
-    return providerNames.filter(name => 
-      name.toLowerCase().startsWith(partialArg.toLowerCase())
+
+    return providerNames.filter((name) =>
+      name.toLowerCase().startsWith(partialArg.toLowerCase()),
     );
   },
 };
@@ -244,19 +275,24 @@ const setDefaultSubCommand: SlashCommand = {
   name: 'set-default',
   description: 'Set the default LLM provider',
   kind: CommandKind.BUILT_IN,
-  action: async (context: CommandContext, args: string): Promise<SlashCommandActionReturn | void> => {
+  action: async (
+    context: CommandContext,
+    args: string,
+  ): Promise<SlashCommandActionReturn | void> => {
     const providerName = args.trim();
-    
+
     if (!providerName) {
       return {
         type: 'message',
         messageType: 'error',
-        content: 'Usage: /provider set-default <name>\n\nUse "/provider list" to see available providers.',
+        content:
+          'Usage: /provider set-default <name>\n\nUse "/provider list" to see available providers.',
       };
     }
 
-    const existingProviders = context.services.settings.merged.llmProviders || {};
-    
+    const existingProviders =
+      context.services.settings.merged.llmProviders || {};
+
     if (!existingProviders[providerName]) {
       return {
         type: 'message',
@@ -266,7 +302,7 @@ const setDefaultSubCommand: SlashCommand = {
     }
 
     const provider = existingProviders[providerName];
-    
+
     if (!provider.enabled) {
       return {
         type: 'message',
@@ -276,7 +312,11 @@ const setDefaultSubCommand: SlashCommand = {
     }
 
     // Set as default
-    context.services.settings.setValue(SettingScope.User, 'defaultLLMProvider', providerName);
+    context.services.settings.setValue(
+      SettingScope.User,
+      'defaultLLMProvider',
+      providerName,
+    );
 
     context.ui.addItem(
       {
@@ -286,18 +326,21 @@ const setDefaultSubCommand: SlashCommand = {
       Date.now(),
     );
   },
-  completion: async (context: CommandContext, partialArg: string): Promise<string[]> => {
+  completion: async (
+    context: CommandContext,
+    partialArg: string,
+  ): Promise<string[]> => {
     const providers = context.services.settings.merged.llmProviders || {};
     const enabledProviders = Object.entries(providers)
       .filter(([_, config]) => config.enabled)
       .map(([name, _]) => name);
-    
+
     if (partialArg.length === 0) {
       return enabledProviders;
     }
-    
-    return enabledProviders.filter(name => 
-      name.toLowerCase().startsWith(partialArg.toLowerCase())
+
+    return enabledProviders.filter((name) =>
+      name.toLowerCase().startsWith(partialArg.toLowerCase()),
     );
   },
 };
@@ -311,7 +354,7 @@ const typesSubCommand: SlashCommand = {
   kind: CommandKind.BUILT_IN,
   action: async (context: CommandContext): Promise<void> => {
     let message = 'Available LLM Provider Types:\n\n';
-    
+
     Object.entries(PROVIDER_DISPLAY_NAMES).forEach(([type, displayName]) => {
       message += `  \u001b[36m${displayName}\u001b[0m (${type})\n`;
     });
@@ -348,4 +391,4 @@ export const providerCommand: SlashCommand = {
     setDefaultSubCommand,
     typesSubCommand,
   ],
-}; 
+};

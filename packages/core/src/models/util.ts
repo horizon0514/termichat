@@ -36,7 +36,9 @@ export function extractAnswer(text: string): string {
  * @param output LLM output string
  * @returns Extracted JSON object
  */
-export function extractJsonFromLLMOutput(output: string): Record<string, unknown> | undefined {
+export function extractJsonFromLLMOutput(
+  output: string,
+): Record<string, unknown> | undefined {
   if (output.trim().startsWith('<think')) {
     output = extractAnswer(output);
   }
@@ -93,24 +95,31 @@ function convertTypeValuesToLowerCase(obj: unknown): unknown {
  */
 export function extractToolFunctions(
   requestConfig: GenerateContentConfig | undefined,
-): Record<string, { description: string; parameters: Record<string, unknown> }> | undefined {
+):
+  | Record<string, { description: string; parameters: Record<string, unknown> }>
+  | undefined {
   if (!requestConfig?.tools) return undefined;
-  
-  const result: Record<string, { description: string; parameters: Record<string, unknown> }> = {};
-  
+
+  const result: Record<
+    string,
+    { description: string; parameters: Record<string, unknown> }
+  > = {};
+
   for (const toolDef of requestConfig.tools) {
     if ('functionDeclarations' in toolDef) {
       for (const func of toolDef.functionDeclarations || []) {
         if (func.name) {
           result[func.name] = {
             description: func.description || '',
-            parameters: convertTypeValuesToLowerCase(func.parameters?.properties || {}) as Record<string, unknown>,
+            parameters: convertTypeValuesToLowerCase(
+              func.parameters?.properties || {},
+            ) as Record<string, unknown>,
           };
         }
       }
     }
   }
-  
+
   return Object.keys(result).length > 0 ? result : undefined;
 }
 

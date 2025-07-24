@@ -18,9 +18,7 @@ export const Tips: React.FC<TipsProps> = ({ config }) => {
   return (
     <Box flexDirection="column" marginBottom={1}>
       <Text color={Colors.Foreground}>Tips for getting started:</Text>
-      <Text color={Colors.Foreground}>
-        1. Ask questions, or run commands.
-      </Text>
+      <Text color={Colors.Foreground}>1. Ask questions, or run commands.</Text>
       <Text color={Colors.Foreground}>
         2. Be specific for the best results.
       </Text>

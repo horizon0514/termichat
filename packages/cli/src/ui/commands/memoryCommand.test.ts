@@ -12,8 +12,7 @@ import { MessageType } from '../types.js';
 import { getErrorMessage } from 'termichat-core';
 
 vi.mock('termichat-core', async (importOriginal) => {
-  const original =
-    await importOriginal<typeof import('termichat-core')>();
+  const original = await importOriginal<typeof import('termichat-core')>();
   return {
     ...original,
     getErrorMessage: vi.fn((error: unknown) => {

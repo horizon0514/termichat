@@ -24,8 +24,7 @@ vi.mock('open', () => ({
 }));
 
 vi.mock('termichat-core', async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import('termichat-core')>();
+  const actual = await importOriginal<typeof import('termichat-core')>();
   return {
     ...actual,
     getMCPServerStatus: vi.fn(),

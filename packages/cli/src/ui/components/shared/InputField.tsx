@@ -86,12 +86,12 @@ export const InputField: React.FC<InputFieldProps> = ({
 
   const handleValueChange = (newValue: string) => {
     setValue(newValue);
-    
+
     // Clear error when user starts typing
     if (error) {
       setError(null);
     }
-    
+
     onChange?.(newValue);
   };
 
@@ -101,7 +101,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       setError(validationError);
       return;
     }
-    
+
     setError(null);
     onSubmit?.(value);
   };
@@ -111,37 +111,41 @@ export const InputField: React.FC<InputFieldProps> = ({
     onCancel?.();
   };
 
-  useKeypress((key) => {
-    if (!isActive) return;
+  useKeypress(
+    (key) => {
+      if (!isActive) return;
 
-    if (key.name === 'return') {
-      handleSubmit();
-    } else if (key.name === 'escape') {
-      handleCancel();
-    } else if (key.name === 'backspace' || key.name === 'delete') {
-      const newValue = value.slice(0, -1);
-      handleValueChange(newValue);
-    } else if (key.paste && key.sequence) {
-      // Handle pasted text
-      const pastedText = key.sequence;
-      const newValue = value + pastedText;
-      if (newValue.length <= maxWidth) {
+      if (key.name === 'return') {
+        handleSubmit();
+      } else if (key.name === 'escape') {
+        handleCancel();
+      } else if (key.name === 'backspace' || key.name === 'delete') {
+        const newValue = value.slice(0, -1);
         handleValueChange(newValue);
-      }
-    } else if (key.sequence && !key.ctrl && !key.meta && !key.paste) {
-      // Only allow printable characters
-      if (key.sequence.length === 1 && key.sequence.charCodeAt(0) >= 32) {
-        const newValue = value + key.sequence;
+      } else if (key.paste && key.sequence) {
+        // Handle paste events (including Command+V on macOS)
+        const pasteContent = key.sequence;
+        const newValue = value + pasteContent;
+        // Apply maxWidth limit, truncating if necessary
+        const finalValue =
+          newValue.length <= maxWidth ? newValue : newValue.slice(0, maxWidth);
+        handleValueChange(finalValue);
+      } else if (key.sequence && !key.ctrl && !key.meta) {
+        // Handle all text input - similar to text-buffer logic
+        const input = key.sequence;
+        const newValue = value + input;
         if (newValue.length <= maxWidth) {
           handleValueChange(newValue);
         }
       }
-    }
-  }, { isActive });
+    },
+    { isActive },
+  );
 
-  const displayValue = type === InputFieldType.PASSWORD && value
-    ? '*'.repeat(value.length)
-    : value;
+  const displayValue =
+    type === InputFieldType.PASSWORD && value
+      ? '*'.repeat(value.length)
+      : value;
 
   const displayText = displayValue || placeholder;
   const textColor = value ? Colors.Foreground : Colors.Gray;
@@ -159,7 +163,9 @@ export const InputField: React.FC<InputFieldProps> = ({
       {/* Input Field */}
       <Box
         borderStyle="round"
-        borderColor={error ? Colors.AccentRed : isActive ? Colors.AccentBlue : Colors.Gray}
+        borderColor={
+          error ? Colors.AccentRed : isActive ? Colors.AccentBlue : Colors.Gray
+        }
         paddingX={1}
         width={Math.min(maxWidth + 2, 60)}
       >
@@ -179,11 +185,9 @@ export const InputField: React.FC<InputFieldProps> = ({
       {/* Help Text */}
       {isActive && !error && (
         <Box marginTop={1}>
-          <Text color={Colors.Gray}>
-            Press Enter to confirm, Esc to cancel
-          </Text>
+          <Text color={Colors.Gray}>Press Enter to confirm, Esc to cancel</Text>
         </Box>
       )}
     </Box>
   );
-}; 
+};

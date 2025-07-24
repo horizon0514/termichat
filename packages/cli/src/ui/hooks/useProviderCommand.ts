@@ -35,11 +35,15 @@ export const useProviderCommand = (
   settings: LoadedSettings,
 ): UseProviderCommandReturn => {
   const [isProviderDialogOpen, setIsProviderDialogOpen] = useState(false);
-  const [isProviderListDialogOpen, setIsProviderListDialogOpen] = useState(false);
-  const [editingProvider, setEditingProvider] = useState<{
-    name: string;
-    config: LLMProviderConfig;
-  } | undefined>(undefined);
+  const [isProviderListDialogOpen, setIsProviderListDialogOpen] =
+    useState(false);
+  const [editingProvider, setEditingProvider] = useState<
+    | {
+        name: string;
+        config: LLMProviderConfig;
+      }
+    | undefined
+  >(undefined);
 
   const openAddProviderDialog = useCallback(() => {
     setEditingProvider(undefined);
@@ -128,4 +132,4 @@ export const useProviderCommand = (
     deleteProvider,
     setDefaultProvider,
   };
-}; 
+};

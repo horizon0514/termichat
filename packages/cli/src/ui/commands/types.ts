@@ -86,7 +86,14 @@ export interface MessageActionReturn {
  */
 export interface OpenDialogActionReturn {
   type: 'dialog';
-  dialog: 'help' | 'auth' | 'theme' | 'editor' | 'privacy' | 'provider' | 'provider-list';
+  dialog:
+    | 'help'
+    | 'auth'
+    | 'theme'
+    | 'editor'
+    | 'privacy'
+    | 'provider'
+    | 'provider-list';
 }
 
 /**

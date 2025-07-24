@@ -30,9 +30,8 @@ vi.mock('read-package-up', () => ({
 }));
 
 vi.mock('termichat-core', async () => {
-  const actualServer = await vi.importActual<typeof ServerConfig>(
-    'termichat-core',
-  );
+  const actualServer =
+    await vi.importActual<typeof ServerConfig>('termichat-core');
   return {
     ...actualServer,
     loadEnvironment: vi.fn(),

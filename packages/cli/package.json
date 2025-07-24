@@ -34,7 +34,6 @@
   "files": [
     "dist"
   ],
-
   "dependencies": {
     "termichat-core": "file:../core",
     "@types/update-notifier": "^6.0.8",

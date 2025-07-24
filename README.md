@@ -22,18 +22,21 @@ TermiChat is a powerful AI chat client that brings Google Gemini's conversationa
 ## 🚀 Quick Start
 
 ### Install with npm
+
 ```bash
 npm install -g termichat
 termichat
 ```
 
 ### Install with Homebrew
+
 ```bash
 brew install termichat
 termichat
 ```
 
 ### Try without installing
+
 ```bash
 npx termichat
 ```
@@ -49,8 +52,9 @@ npx termichat
 ## 🎨 Beautiful Themes
 
 TermiChat comes with 16 built-in themes:
+
 - Default Light/Dark
-- GitHub Light/Dark  
+- GitHub Light/Dark
 - Dracula
 - Atom One Dark
 - Ayu Light/Dark
@@ -108,4 +112,4 @@ TermiChat is built upon the excellent foundation of [Google's Gemini CLI](https:
 
 **Made with ❤️ for the terminal community**
 
-*Chat better. Code better. Think better.*
+_Chat better. Code better. Think better._

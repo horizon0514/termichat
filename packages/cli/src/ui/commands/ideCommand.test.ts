@@ -22,8 +22,7 @@ import {
 vi.mock('child_process');
 vi.mock('glob');
 vi.mock('termichat-core', async (importOriginal) => {
-  const original =
-    await importOriginal<typeof import('termichat-core')>();
+  const original = await importOriginal<typeof import('termichat-core')>();
   return {
     ...original,
     getMCPServerStatus: vi.fn(),

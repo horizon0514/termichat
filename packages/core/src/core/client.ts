@@ -226,9 +226,7 @@ export class GeminiClient {
     const toolRegistry = await this.config.getToolRegistry();
     const toolDeclarations = toolRegistry.getFunctionDeclarations();
     const tools: Tool[] = [{ functionDeclarations: toolDeclarations }];
-    const history: Content[] = [
-      ...(extraHistory ?? []),
-    ];
+    const history: Content[] = [...(extraHistory ?? [])];
     try {
       const userMemory = this.config.getUserMemory();
       const systemInstruction = getCoreSystemPrompt(userMemory);

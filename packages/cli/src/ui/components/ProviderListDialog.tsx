@@ -69,7 +69,7 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
       const isDefault = name === defaultProvider;
       const prefix = isDefault ? '★ ' : '  ';
       const status = config.enabled ? '✓' : '✗';
-      
+
       actionItems.push({
         label: `${prefix}${status} ${config.displayName} (${name})`,
         value: DialogAction.EDIT,
@@ -115,7 +115,10 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
     }
   };
 
-  const handleSecondaryAction = (action: DialogAction, providerName?: string) => {
+  const handleSecondaryAction = (
+    action: DialogAction,
+    providerName?: string,
+  ) => {
     if (action === DialogAction.DELETE && providerName) {
       setConfirmationAction({ action, providerName });
       setShowConfirmation(true);
@@ -126,7 +129,10 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
 
   const handleConfirmation = (confirmed: boolean) => {
     if (confirmed && confirmationAction) {
-      if (confirmationAction.action === DialogAction.DELETE && confirmationAction.providerName) {
+      if (
+        confirmationAction.action === DialogAction.DELETE &&
+        confirmationAction.providerName
+      ) {
         onDelete(confirmationAction.providerName);
       }
     }
@@ -156,7 +162,10 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
       // Set default shortcut
       const currentItem = actionItems[selectedIndex];
       if (currentItem?.providerName) {
-        handleSecondaryAction(DialogAction.SET_DEFAULT, currentItem.providerName);
+        handleSecondaryAction(
+          DialogAction.SET_DEFAULT,
+          currentItem.providerName,
+        );
       }
     }
   });
@@ -171,17 +180,18 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
         width="100%"
       >
         <Box marginBottom={1}>
-          <Text bold color={Colors.AccentRed}>Confirm Deletion</Text>
+          <Text bold color={Colors.AccentRed}>
+            Confirm Deletion
+          </Text>
         </Box>
         <Box marginBottom={1}>
           <Text>
-            Are you sure you want to delete provider &quot;{confirmationAction.providerName}&quot;?
+            Are you sure you want to delete provider &quot;
+            {confirmationAction.providerName}&quot;?
           </Text>
         </Box>
         <Box marginBottom={1}>
-          <Text color={Colors.Gray}>
-            This action cannot be undone.
-          </Text>
+          <Text color={Colors.Gray}>This action cannot be undone.</Text>
         </Box>
         <Box>
           <Text color={Colors.Gray}>
@@ -210,9 +220,7 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
       {/* Empty state */}
       {!hasProviders && (
         <Box flexDirection="column" marginBottom={1}>
-          <Text color={Colors.Gray}>
-            No LLM providers configured yet.
-          </Text>
+          <Text color={Colors.Gray}>No LLM providers configured yet.</Text>
           <Text color={Colors.Gray}>
             Add your first provider to get started.
           </Text>
@@ -230,7 +238,7 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
         )}
 
         <RadioButtonSelect
-          items={actionItems.map(item => ({
+          items={actionItems.map((item) => ({
             label: item.label,
             value: item,
             disabled: item.disabled,
@@ -248,9 +256,7 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
             <Text color={Colors.Gray}>
               Actions: Enter = Edit, D = Delete, S = Set Default
             </Text>
-            <Text color={Colors.Gray}>
-              Use ↑↓ to navigate, Esc to cancel
-            </Text>
+            <Text color={Colors.Gray}>Use ↑↓ to navigate, Esc to cancel</Text>
           </>
         )}
         {!hasProviders && (
@@ -261,4 +267,4 @@ export const ProviderListDialog: React.FC<ProviderListDialogProps> = ({
       </Box>
     </Box>
   );
-}; 
+};

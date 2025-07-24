@@ -50,7 +50,9 @@ export const PROVIDER_DISPLAY_NAMES: Record<LLMProviderType, string> = {
  * @param config The provider configuration to validate
  * @returns Error message if invalid, null if valid
  */
-export function validateLLMProviderConfig(config: Partial<LLMProviderConfig>): string | null {
+export function validateLLMProviderConfig(
+  config: Partial<LLMProviderConfig>,
+): string | null {
   if (!config.name || config.name.trim() === '') {
     return 'Provider name is required';
   }

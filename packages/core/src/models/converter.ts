@@ -44,24 +44,27 @@ export class ModelConverter {
   /**
    * Convert Gemini content to AI SDK messages
    */
-  static toOpenAIMessages(
-    request: GenerateContentParameters,
-  ): CoreMessage[] {
+  static toOpenAIMessages(request: GenerateContentParameters): CoreMessage[] {
     const { contents, config } = request;
     const messages: CoreMessage[] = [];
-    
+
     // Add system instruction if present
-    if (config?.systemInstruction && typeof config.systemInstruction === 'string') {
+    if (
+      config?.systemInstruction &&
+      typeof config.systemInstruction === 'string'
+    ) {
       messages.push({
         role: 'system',
         content: config.systemInstruction,
       });
     }
-    
+
     const contentsArray = normalizeContents(contents);
     for (const content of contentsArray) {
       const role =
-        content.role === 'model' ? 'assistant' : (content.role as 'user' | 'system');
+        content.role === 'model'
+          ? 'assistant'
+          : (content.role as 'user' | 'system');
       const parts = content.parts || [];
       this.processTextParts(parts, role, messages);
       this.processFunctionResponseParts(parts, messages);
@@ -175,7 +178,7 @@ export class ModelConverter {
         toolName: part.functionCall.name,
         args: part.functionCall.args,
       }));
-      
+
       messages.push({
         role: 'assistant',
         content: toolCalls,
@@ -186,9 +189,7 @@ export class ModelConverter {
   /**
    * Convert AI SDK response to Gemini response
    */
-  static toGeminiResponse(
-    result: GenerateTextResult,
-  ): GenerateContentResponse {
+  static toGeminiResponse(result: GenerateTextResult): GenerateContentResponse {
     const res = new GenerateContentResponse();
 
     if (result.text) {
@@ -219,7 +220,7 @@ export class ModelConverter {
         },
       ];
     }
-    
+
     res.usageMetadata = {
       promptTokenCount: result.usage?.promptTokens || 0,
       candidatesTokenCount: result.usage?.completionTokens || 0,
@@ -239,7 +240,7 @@ export class ModelConverter {
 
     // Convert the object to JSON string for the text response
     const jsonText = JSON.stringify(result.object);
-    
+
     res.candidates = [
       {
         content: {
@@ -250,7 +251,7 @@ export class ModelConverter {
         safetyRatings: [],
       },
     ];
-    
+
     res.usageMetadata = {
       promptTokenCount: result.usage?.promptTokens || 0,
       candidatesTokenCount: result.usage?.completionTokens || 0,
@@ -326,9 +327,11 @@ export class ModelConverter {
   /**
    * Create final response for stream completion with usage info
    */
-  static toGeminiStreamUsageResponse(
-    usage: { promptTokens?: number; completionTokens?: number; totalTokens?: number },
-  ): GenerateContentResponse {
+  static toGeminiStreamUsageResponse(usage: {
+    promptTokens?: number;
+    completionTokens?: number;
+    totalTokens?: number;
+  }): GenerateContentResponse {
     const res = new GenerateContentResponse();
     res.candidates = [
       {

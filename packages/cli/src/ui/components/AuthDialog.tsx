@@ -60,7 +60,8 @@ export function AuthDialog({
     return null;
   });
   // Check if there are configured LLM providers
-  const hasLLMProviders = settings.merged.llmProviders && 
+  const hasLLMProviders =
+    settings.merged.llmProviders &&
     Object.keys(settings.merged.llmProviders).length > 0;
 
   const items = [

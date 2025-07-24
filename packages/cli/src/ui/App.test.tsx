@@ -83,8 +83,7 @@ interface MockServerConfig {
 
 // Mock termichat-core and its Config class
 vi.mock('termichat-core', async (importOriginal) => {
-  const actualCore =
-    await importOriginal<typeof import('termichat-core')>();
+  const actualCore = await importOriginal<typeof import('termichat-core')>();
   const ConfigClassMock = vi
     .fn()
     .mockImplementation((optionsPassedToConstructor) => {

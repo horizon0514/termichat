@@ -13,7 +13,13 @@ import {
   EmbedContentParameters,
 } from '@google/genai';
 import { createOpenAI } from '@ai-sdk/openai';
-import { generateText, streamText, generateObject, streamObject, jsonSchema } from 'ai';
+import {
+  generateText,
+  streamText,
+  generateObject,
+  streamObject,
+  jsonSchema,
+} from 'ai';
 import { ContentGenerator } from '../core/contentGenerator.js';
 import { CustomLLMContentGeneratorConfig } from './types.js';
 import { ModelConverter } from './converter.js';
@@ -33,7 +39,7 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     top_p: this.topP,
   };
 
-  constructor() {    
+  constructor() {
     this.model = createOpenAI({
       apiKey: this.apiKey,
       baseURL: this.baseURL,
@@ -43,45 +49,55 @@ export class CustomLLMContentGenerator implements ContentGenerator {
   /**
    * Normalizes a schema to ensure it has proper type declarations for use with Vercel AI SDK
    */
-  private normalizeSchema(schema: Record<string, unknown>): Record<string, unknown> {
+  private normalizeSchema(
+    schema: Record<string, unknown>,
+  ): Record<string, unknown> {
     const normalized = { ...schema };
-    
+
     // If schema has properties but no type, it should be "object"
     if (normalized.properties && !normalized.type) {
       normalized.type = 'object';
     }
-    
+
     // Recursively normalize properties
     if (normalized.properties && typeof normalized.properties === 'object') {
       const normalizedProperties: Record<string, unknown> = {};
       for (const [key, value] of Object.entries(normalized.properties)) {
         if (typeof value === 'object' && value !== null) {
-          normalizedProperties[key] = this.normalizeSchema(value as Record<string, unknown>);
+          normalizedProperties[key] = this.normalizeSchema(
+            value as Record<string, unknown>,
+          );
         } else {
           normalizedProperties[key] = value;
         }
       }
       normalized.properties = normalizedProperties;
     }
-    
+
     // Handle arrays
     if (normalized.items && typeof normalized.items === 'object') {
-      normalized.items = this.normalizeSchema(normalized.items as Record<string, unknown>);
+      normalized.items = this.normalizeSchema(
+        normalized.items as Record<string, unknown>,
+      );
     }
-    
+
     // Handle anyOf/oneOf
     if (Array.isArray(normalized.anyOf)) {
-      normalized.anyOf = normalized.anyOf.map(item => 
-        typeof item === 'object' && item !== null ? this.normalizeSchema(item as Record<string, unknown>) : item
+      normalized.anyOf = normalized.anyOf.map((item) =>
+        typeof item === 'object' && item !== null
+          ? this.normalizeSchema(item as Record<string, unknown>)
+          : item,
       );
     }
-    
+
     if (Array.isArray(normalized.oneOf)) {
-      normalized.oneOf = normalized.oneOf.map(item => 
-        typeof item === 'object' && item !== null ? this.normalizeSchema(item as Record<string, unknown>) : item
+      normalized.oneOf = normalized.oneOf.map((item) =>
+        typeof item === 'object' && item !== null
+          ? this.normalizeSchema(item as Record<string, unknown>)
+          : item,
       );
     }
-    
+
     return normalized;
   }
 
@@ -92,16 +108,20 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     request: GenerateContentParameters,
   ): Promise<AsyncGenerator<GenerateContentResponse>> {
     const messages = ModelConverter.toOpenAIMessages(request);
-    
+
     // Check if this is a structured JSON output request
-    const isJsonRequest = request.config?.responseMimeType === 'application/json' && 
-                         request.config?.responseSchema;
-    
+    const isJsonRequest =
+      request.config?.responseMimeType === 'application/json' &&
+      request.config?.responseSchema;
+
     if (isJsonRequest && request.config?.responseSchema) {
       // Use streamObject for structured JSON output
-      const rawSchema = request.config.responseSchema as Record<string, unknown>;
+      const rawSchema = request.config.responseSchema as Record<
+        string,
+        unknown
+      >;
       const normalizedSchema = this.normalizeSchema(rawSchema);
-      
+
       try {
         const stream = streamObject({
           model: this.model(this.modelName),
@@ -122,10 +142,12 @@ export class CustomLLMContentGenerator implements ContentGenerator {
         })();
       } catch (error) {
         console.error('[CustomLLM] streamObject error:', error);
-        throw new Error(`Failed to generate streaming JSON content: ${error instanceof Error ? error.message : String(error)}`);
+        throw new Error(
+          `Failed to generate streaming JSON content: ${error instanceof Error ? error.message : String(error)}`,
+        );
       }
     } else {
-      // Use streamText for regular text output      
+      // Use streamText for regular text output
       try {
         const stream = streamText({
           model: this.model(this.modelName),
@@ -144,7 +166,9 @@ export class CustomLLMContentGenerator implements ContentGenerator {
           }
         })();
       } catch (error) {
-        throw new Error(`Failed to generate streaming text content: ${error instanceof Error ? error.message : String(error)}`);
+        throw new Error(
+          `Failed to generate streaming text content: ${error instanceof Error ? error.message : String(error)}`,
+        );
       }
     }
   }
@@ -156,16 +180,20 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     request: GenerateContentParameters,
   ): Promise<GenerateContentResponse> {
     const messages = ModelConverter.toOpenAIMessages(request);
-    
+
     // Check if this is a structured JSON output request
-    const isJsonRequest = request.config?.responseMimeType === 'application/json' && 
-                         request.config?.responseSchema;
-    
+    const isJsonRequest =
+      request.config?.responseMimeType === 'application/json' &&
+      request.config?.responseSchema;
+
     if (isJsonRequest && request.config?.responseSchema) {
       // Use generateObject for structured JSON output
-      const rawSchema = request.config.responseSchema as Record<string, unknown>;
+      const rawSchema = request.config.responseSchema as Record<
+        string,
+        unknown
+      >;
       const normalizedSchema = this.normalizeSchema(rawSchema);
-      
+
       try {
         const result = await generateObject({
           model: this.model(this.modelName),
@@ -182,13 +210,15 @@ export class CustomLLMContentGenerator implements ContentGenerator {
           usage: result.usage,
           finishReason: result.finishReason,
         };
-        
+
         return ModelConverter.toGeminiObjectResponse(typedResult);
       } catch (error) {
-        throw new Error(`Failed to generate JSON content: ${error instanceof Error ? error.message : String(error)}`);
+        throw new Error(
+          `Failed to generate JSON content: ${error instanceof Error ? error.message : String(error)}`,
+        );
       }
     } else {
-      // Use generateText for regular text output      
+      // Use generateText for regular text output
       try {
         const result = await generateText({
           model: this.model(this.modelName),
@@ -200,7 +230,9 @@ export class CustomLLMContentGenerator implements ContentGenerator {
 
         return ModelConverter.toGeminiResponse(result);
       } catch (error) {
-        throw new Error(`Failed to generate text content: ${error instanceof Error ? error.message : String(error)}`);
+        throw new Error(
+          `Failed to generate text content: ${error instanceof Error ? error.message : String(error)}`,
+        );
       }
     }
   }

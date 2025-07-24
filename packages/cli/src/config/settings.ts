@@ -29,17 +29,17 @@ export const LEGACY_SETTINGS_DIRECTORY_NAME = '.gemini';
 function getConfigDirectory(): string {
   const termichatDir = path.join(homedir(), SETTINGS_DIRECTORY_NAME);
   const legacyDir = path.join(homedir(), LEGACY_SETTINGS_DIRECTORY_NAME);
-  
+
   // 如果 .termichat 目录存在，使用它
   if (fs.existsSync(termichatDir)) {
     return termichatDir;
   }
-  
+
   // 如果 .gemini 目录存在，使用它（向后兼容）
   if (fs.existsSync(legacyDir)) {
     return legacyDir;
   }
-  
+
   // 都不存在时，默认使用新的 .termichat 目录
   return termichatDir;
 }
