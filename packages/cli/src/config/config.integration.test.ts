@@ -8,11 +8,7 @@ import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import { tmpdir } from 'os';
-import {
-  Config,
-  ConfigParameters,
-  ContentGeneratorConfig,
-} from 'termichat-core';
+import { Config, ConfigParameters, ContentGeneratorConfig } from 'yakchat-core';
 
 const TEST_CONTENT_GENERATOR_CONFIG: ContentGeneratorConfig = {
   apiKey: 'test-key',
@@ -21,8 +17,8 @@ const TEST_CONTENT_GENERATOR_CONFIG: ContentGeneratorConfig = {
 };
 
 // Mock file discovery service and tool registry
-vi.mock('termichat-core', async () => {
-  const actual = await vi.importActual('termichat-core');
+vi.mock('yakchat-core', async () => {
+  const actual = await vi.importActual('yakchat-core');
   return {
     ...actual,
     FileDiscoveryService: vi.fn().mockImplementation(() => ({

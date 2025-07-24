@@ -13,13 +13,13 @@ import { useCompletion } from './useCompletion.js';
 import * as fs from 'fs/promises';
 import { glob } from 'glob';
 import { CommandContext, SlashCommand } from '../commands/types.js';
-import { Config, FileDiscoveryService } from 'termichat-core';
+import { Config, FileDiscoveryService } from 'yakchat-core';
 
 // Mock dependencies
 vi.mock('fs/promises');
 vi.mock('glob');
-vi.mock('termichat-core', async () => {
-  const actual = await vi.importActual('termichat-core');
+vi.mock('yakchat-core', async () => {
+  const actual = await vi.importActual('yakchat-core');
   return {
     ...actual,
     FileDiscoveryService: vi.fn(),

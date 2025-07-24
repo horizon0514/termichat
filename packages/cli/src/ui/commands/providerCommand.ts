@@ -11,7 +11,7 @@ import {
   CommandContext,
 } from './types.js';
 import { MessageType } from '../types.js';
-import { PROVIDER_DISPLAY_NAMES } from 'termichat-core';
+import { PROVIDER_DISPLAY_NAMES } from 'yakchat-core';
 import { SettingScope } from '../../config/settings.js';
 
 /**

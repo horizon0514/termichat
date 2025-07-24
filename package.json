@@ -1,7 +1,7 @@
 {
-  "name": "termichat",
+  "name": "yakchat",
   "version": "0.1.0",
-  "description": "TermiChat - AI Chat Client in Your Terminal",
+  "description": "YakChat - AI Chat Client in Your Terminal",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -12,7 +12,7 @@
   "private": "true",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/horizon0514/termichat.git"
+    "url": "git+https://github.com/horizon0514/yakchat.git"
   },
   "keywords": [
     "ai",
@@ -46,7 +46,7 @@
     "clean": "node scripts/clean.js"
   },
   "bin": {
-    "termichat": "bundle/termichat.js"
+    "yakchat": "bundle/yakchat.js"
   },
   "files": [
     "bundle/",

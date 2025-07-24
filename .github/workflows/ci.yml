@@ -1,6 +1,6 @@
 # .github/workflows/ci.yml
 
-name: TermiChat CI
+name: YakChat CI
 
 on:
   push:

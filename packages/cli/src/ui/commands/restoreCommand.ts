@@ -12,7 +12,7 @@ import {
   type SlashCommandActionReturn,
   CommandKind,
 } from './types.js';
-import { Config } from 'termichat-core';
+import { Config } from 'yakchat-core';
 
 async function restoreAction(
   context: CommandContext,

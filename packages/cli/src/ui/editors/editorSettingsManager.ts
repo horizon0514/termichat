@@ -8,7 +8,7 @@ import {
   allowEditorTypeInSandbox,
   checkHasEditorType,
   type EditorType,
-} from 'termichat-core';
+} from 'yakchat-core';
 
 export interface EditorDisplay {
   name: string;

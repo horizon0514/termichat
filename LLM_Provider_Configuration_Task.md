@@ -13,7 +13,7 @@ Associated Protocol: RIPER-5 + Multidimensional + Agent Protocol
 
 1. 用户可以在界面上选择llm provider（暂时只需要接入openRouter）
 2. 提示填写 APIkey（必选）、API Base URL（可选）
-3. 写入配置文件（配置文件保存在 .termichat 目录下或其他兼容不同操作系统的方案）
+3. 写入配置文件（配置文件保存在 .yakchat 目录下或其他兼容不同操作系统的方案）
 4. 对应的command要如何设计？
 
 # Project Overview
@@ -81,7 +81,7 @@ Gemini CLI 是一个基于Ink构建的终端界面应用程序，具有复杂的
 
 ### 约束条件
 
-1. **目录命名**: 当前使用 `.gemini` 目录，但用户要求使用 `.termichat` 目录
+1. **目录命名**: 当前使用 `.gemini` 目录，但用户要求使用 `.yakchat` 目录
 2. **配置兼容性**: 需要保持与现有配置系统的兼容性
 3. **平台兼容性**: 需要支持 macOS、Windows、Linux
 4. **扩展性**: 虽然当前只需要 openRouter，但架构应支持未来扩展其他 LLM providers
@@ -103,8 +103,8 @@ Gemini CLI 是一个基于Ink构建的终端界面应用程序，具有复杂的
 
 #### 1. 配置目录迁移策略
 
-- **优先级**: `.termichat` > `.gemini` （渐进式迁移）
-- **新配置**: 统一使用 `.termichat` 目录
+- **优先级**: `.yakchat` > `.gemini` （渐进式迁移）
+- **新配置**: 统一使用 `.yakchat` 目录
 - **兼容性**: 继续支持读取 `.gemini` 目录的配置
 - **跨平台**: 保持现有的系统路径策略
 
@@ -156,7 +156,7 @@ interface Settings {
 #### Phase 1: 基础架构
 
 1. 扩展Settings接口，添加LLM provider配置字段
-2. 修改配置目录策略，支持 `.termichat` 目录
+2. 修改配置目录策略，支持 `.yakchat` 目录
 3. 创建LLMProviderConfig接口和相关类型定义
 
 #### Phase 2: 命令系统
@@ -203,11 +203,11 @@ interface Settings {
 #### 1.2 修改配置目录策略
 
 - **File**: `packages/cli/src/config/settings.ts`
-- **Rationale**: 实现 `.termichat` 目录优先级，保持向后兼容性
+- **Rationale**: 实现 `.yakchat` 目录优先级，保持向后兼容性
 - **Changes**:
-  - 修改 `SETTINGS_DIRECTORY_NAME` 常量为 `.termichat`
+  - 修改 `SETTINGS_DIRECTORY_NAME` 常量为 `.yakchat`
   - 创建 `LEGACY_SETTINGS_DIRECTORY_NAME` 常量为 `.gemini`
-  - 修改 `USER_SETTINGS_DIR` 计算逻辑，优先检查 `.termichat`
+  - 修改 `USER_SETTINGS_DIR` 计算逻辑，优先检查 `.yakchat`
   - 更新 `loadSettings` 函数实现配置迁移策略
 
 #### 1.3 扩展Settings接口
@@ -340,7 +340,7 @@ interface Settings {
 ## Implementation Checklist:
 
 1. **[Phase 1.1]** ✅ 创建 `packages/core/src/config/llmProvider.ts` - 定义所有LLM provider相关类型和常量
-2. **[Phase 1.2]** ✅ 修改 `packages/cli/src/config/settings.ts` - 实现 `.termichat` 目录策略
+2. **[Phase 1.2]** ✅ 修改 `packages/cli/src/config/settings.ts` - 实现 `.yakchat` 目录策略
 3. **[Phase 1.3]** ✅ 扩展 `packages/cli/src/config/settings.ts` Settings接口 - 添加provider配置字段
 4. **[Phase 1.4]** ✅ 修改 `packages/core/src/core/contentGenerator.ts` - 扩展AuthType枚举
 5. **[Phase 2.1]** 创建 `packages/cli/src/ui/commands/providerCommand.ts` - 实现provider命令
@@ -371,8 +371,8 @@ interface Settings {
 
 - 2025-01-09
   - Step: Phase 1.2 - 修改配置目录策略
-  - Modifications: 修改了 `packages/cli/src/config/settings.ts`，实现了 `.termichat` 目录优先级和向后兼容性
-  - Change Summary: 添加了配置目录选择逻辑，优先使用 `.termichat`，向后兼容 `.gemini`
+  - Modifications: 修改了 `packages/cli/src/config/settings.ts`，实现了 `.yakchat` 目录优先级和向后兼容性
+  - Change Summary: 添加了配置目录选择逻辑，优先使用 `.yakchat`，向后兼容 `.gemini`
   - Reason: 执行计划步骤Phase 1.2
   - Blockers: None
   - Status: Success

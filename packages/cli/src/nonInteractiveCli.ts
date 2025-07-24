@@ -11,7 +11,7 @@ import {
   ToolRegistry,
   shutdownTelemetry,
   isTelemetrySdkInitialized,
-} from 'termichat-core';
+} from 'yakchat-core';
 import {
   Content,
   Part,

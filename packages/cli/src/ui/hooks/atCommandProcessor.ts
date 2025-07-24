@@ -12,7 +12,7 @@ import {
   getErrorMessage,
   isNodeError,
   unescapePath,
-} from 'termichat-core';
+} from 'yakchat-core';
 import {
   HistoryItem,
   IndividualToolCallDisplay,

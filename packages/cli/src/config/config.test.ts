@@ -9,7 +9,7 @@ import * as os from 'os';
 import { loadCliConfig, parseArguments } from './config.js';
 import { Settings } from './settings.js';
 import { Extension } from './extension.js';
-import * as ServerConfig from 'termichat-core';
+import * as ServerConfig from 'yakchat-core';
 
 vi.mock('os', async (importOriginal) => {
   const actualOs = await importOriginal<typeof os>();
@@ -29,9 +29,9 @@ vi.mock('read-package-up', () => ({
   ),
 }));
 
-vi.mock('termichat-core', async () => {
+vi.mock('yakchat-core', async () => {
   const actualServer =
-    await vi.importActual<typeof ServerConfig>('termichat-core');
+    await vi.importActual<typeof ServerConfig>('yakchat-core');
   return {
     ...actualServer,
     loadEnvironment: vi.fn(),

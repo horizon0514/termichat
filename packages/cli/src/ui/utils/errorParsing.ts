@@ -13,7 +13,7 @@ import {
   isGenericQuotaExceededError,
   isApiError,
   isStructuredError,
-} from 'termichat-core';
+} from 'yakchat-core';
 
 // Free Tier message functions
 const getRateLimitErrorMessageGoogleFree = (

@@ -16,7 +16,7 @@ import {
   getMCPServerStatus,
   MCPDiscoveryState,
   MCPServerStatus,
-} from 'termichat-core';
+} from 'yakchat-core';
 import open from 'open';
 
 const COLOR_GREEN = '\u001b[32m';

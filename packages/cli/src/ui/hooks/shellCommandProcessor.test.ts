@@ -7,7 +7,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { vi } from 'vitest';
 import { useShellCommandProcessor } from './shellCommandProcessor';
-import { Config, GeminiClient } from 'termichat-core';
+import { Config, GeminiClient } from 'yakchat-core';
 import * as fs from 'fs';
 import EventEmitter from 'events';
 import { ToolCallStatus } from '../types';
@@ -25,7 +25,7 @@ vi.mock('os', () => ({
   tmpdir: () => '/tmp',
   homedir: () => '/home/user',
 }));
-vi.mock('termichat-core');
+vi.mock('yakchat-core');
 vi.mock('../utils/textUtils.js', () => ({
   isBinary: vi.fn(),
 }));

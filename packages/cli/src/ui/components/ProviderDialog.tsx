@@ -17,7 +17,7 @@ import {
   validateLLMProviderConfig,
   PROVIDER_DISPLAY_NAMES,
   DEFAULT_PROVIDER_BASE_URLS,
-} from 'termichat-core';
+} from 'yakchat-core';
 
 export interface ProviderDialogProps {
   /** Called when provider is saved */

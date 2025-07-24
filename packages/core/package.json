@@ -1,10 +1,10 @@
 {
-  "name": "termichat-core",
+  "name": "yakchat-core",
   "version": "0.1.0",
-  "description": "TermiChat Core - Core functionality for TermiChat AI chat client",
+  "description": "YakChat Core - Core functionality for YakChat AI chat client",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_USERNAME/termichat.git"
+    "url": "git+https://github.com/YOUR_USERNAME/yakchat.git"
   },
   "type": "module",
   "main": "dist/index.js",

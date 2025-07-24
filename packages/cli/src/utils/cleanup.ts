@@ -6,7 +6,7 @@
 
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { getProjectTempDir } from 'termichat-core';
+import { getProjectTempDir } from 'yakchat-core';
 
 const cleanupFunctions: Array<() => void> = [];
 

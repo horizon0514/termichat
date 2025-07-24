@@ -16,19 +16,16 @@ import {
 import { renderHook, act } from '@testing-library/react';
 import { useAutoAcceptIndicator } from './useAutoAcceptIndicator.js';
 
-import {
-  Config,
-  Config as ActualConfigType,
-  ApprovalMode,
-} from 'termichat-core';
+import { Config, Config as ActualConfigType, ApprovalMode } from 'yakchat-core';
 import { useInput, type Key as InkKey } from 'ink';
 
 vi.mock('ink');
 
-vi.mock('termichat-core', async () => {
-  const actualServerModule = (await vi.importActual(
-    'termichat-core',
-  )) as Record<string, unknown>;
+vi.mock('yakchat-core', async () => {
+  const actualServerModule = (await vi.importActual('yakchat-core')) as Record<
+    string,
+    unknown
+  >;
   return {
     ...actualServerModule,
     Config: vi.fn(),

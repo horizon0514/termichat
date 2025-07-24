@@ -34,7 +34,7 @@ export const AboutBox: React.FC<AboutBoxProps> = ({
   >
     <Box marginBottom={1}>
       <Text bold color={Colors.AccentPurple}>
-        About TermiChat
+        About YakChat
       </Text>
     </Box>
     <Box flexDirection="row">

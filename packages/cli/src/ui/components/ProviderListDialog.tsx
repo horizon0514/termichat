@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { Box, Text, useInput } from 'ink';
 import { Colors } from '../colors.js';
 import { RadioButtonSelect } from './shared/RadioButtonSelect.js';
-import { LLMProviderConfig } from 'termichat-core';
+import { LLMProviderConfig } from 'yakchat-core';
 
 export interface ProviderListDialogProps {
   /** List of configured providers */

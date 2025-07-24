@@ -7,7 +7,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach, Mock } from 'vitest';
 import type { Mocked } from 'vitest';
 import { handleAtCommand } from './atCommandProcessor.js';
-import { Config, FileDiscoveryService } from 'termichat-core';
+import { Config, FileDiscoveryService } from 'yakchat-core';
 import { ToolCallStatus } from '../types.js';
 import { UseHistoryManagerReturn } from './useHistoryManager.js';
 import * as fsPromises from 'fs/promises';
@@ -57,8 +57,8 @@ vi.mock('fs/promises', async () => {
   };
 });
 
-vi.mock('termichat-core', async () => {
-  const actual = await vi.importActual('termichat-core');
+vi.mock('yakchat-core', async () => {
+  const actual = await vi.importActual('yakchat-core');
   return {
     ...actual,
     FileDiscoveryService: vi.fn(),

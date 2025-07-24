@@ -34,4 +34,4 @@ if (!existsSync(join(root, 'node_modules'))) {
 execSync('npm run generate', { stdio: 'inherit', cwd: root });
 execSync('npm run build --workspaces', { stdio: 'inherit', cwd: root });
 
-// Sandbox functionality removed for TermiChat
+// Sandbox functionality removed for YakChat

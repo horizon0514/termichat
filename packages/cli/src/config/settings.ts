@@ -16,23 +16,23 @@ import {
   TelemetrySettings,
   AuthType,
   LLMProviderConfig,
-} from 'termichat-core';
+} from 'yakchat-core';
 import stripJsonComments from 'strip-json-comments';
 import { DefaultLight } from '../ui/themes/default-light.js';
 import { DefaultDark } from '../ui/themes/default.js';
 import { CustomTheme } from '../ui/themes/theme.js';
 
-export const SETTINGS_DIRECTORY_NAME = '.termichat';
+export const SETTINGS_DIRECTORY_NAME = '.yakchat';
 export const LEGACY_SETTINGS_DIRECTORY_NAME = '.gemini';
 
-// 优先使用 .termichat 目录，如果不存在则使用 .gemini 目录（向后兼容）
+// 优先使用 .yakchat 目录，如果不存在则使用 .gemini 目录（向后兼容）
 function getConfigDirectory(): string {
-  const termichatDir = path.join(homedir(), SETTINGS_DIRECTORY_NAME);
+  const YakChatDir = path.join(homedir(), SETTINGS_DIRECTORY_NAME);
   const legacyDir = path.join(homedir(), LEGACY_SETTINGS_DIRECTORY_NAME);
 
-  // 如果 .termichat 目录存在，使用它
-  if (fs.existsSync(termichatDir)) {
-    return termichatDir;
+  // 如果 .yakchat 目录存在，使用它
+  if (fs.existsSync(YakChatDir)) {
+    return YakChatDir;
   }
 
   // 如果 .gemini 目录存在，使用它（向后兼容）
@@ -40,8 +40,8 @@ function getConfigDirectory(): string {
     return legacyDir;
   }
 
-  // 都不存在时，默认使用新的 .termichat 目录
-  return termichatDir;
+  // 都不存在时，默认使用新的 .yakchat 目录
+  return YakChatDir;
 }
 
 export const USER_SETTINGS_DIR = getConfigDirectory();

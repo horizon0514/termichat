@@ -5,7 +5,7 @@
  */
 
 import { useState, useCallback } from 'react';
-import { LLMProviderConfig } from 'termichat-core';
+import { LLMProviderConfig } from 'yakchat-core';
 import { LoadedSettings, SettingScope } from '../../config/settings.js';
 
 export interface UseProviderCommandReturn {

@@ -308,13 +308,13 @@ describe('getFolderStructure gitignore', () => {
           createDirent('node_modules', 'dir'),
           createDirent('ignored.txt', 'file'),
           createDirent('gem_ignored.txt', 'file'),
-          createDirent('.termichat', 'dir'),
+          createDirent('.yakchat', 'dir'),
         ] as any;
       }
       if (path === '/test/project/node_modules') {
         return [createDirent('some-package', 'dir')] as any;
       }
-      if (path === '/test/project/.termichat') {
+      if (path === '/test/project/.yakchat') {
         return [
           createDirent('config.yaml', 'file'),
           createDirent('logs.json', 'file'),
@@ -326,10 +326,10 @@ describe('getFolderStructure gitignore', () => {
     (fs.readFileSync as Mock).mockImplementation((p) => {
       const path = p.toString();
       if (path === '/test/project/.gitignore') {
-        return 'ignored.txt\nnode_modules/\n.termichat/\n!/.termichat/config.yaml';
+        return 'ignored.txt\nnode_modules/\n.yakchat/\n!/.yakchat/config.yaml';
       }
       if (path === '/test/project/.geminiignore') {
-        return 'gem_ignored.txt\nnode_modules/\n.termichat/\n!/.termichat/config.yaml';
+        return 'gem_ignored.txt\nnode_modules/\n.yakchat/\n!/.yakchat/config.yaml';
       }
       return '';
     });

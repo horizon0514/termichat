@@ -13,11 +13,7 @@ import React, {
   useEffect,
 } from 'react';
 
-import {
-  uiTelemetryService,
-  SessionMetrics,
-  ModelMetrics,
-} from 'termichat-core';
+import { uiTelemetryService, SessionMetrics, ModelMetrics } from 'yakchat-core';
 
 // --- Interface Definitions ---
 

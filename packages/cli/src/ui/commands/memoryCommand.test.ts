@@ -9,10 +9,10 @@ import { memoryCommand } from './memoryCommand.js';
 import { type CommandContext, SlashCommand } from './types.js';
 import { createMockCommandContext } from '../../test-utils/mockCommandContext.js';
 import { MessageType } from '../types.js';
-import { getErrorMessage } from 'termichat-core';
+import { getErrorMessage } from 'yakchat-core';
 
-vi.mock('termichat-core', async (importOriginal) => {
-  const original = await importOriginal<typeof import('termichat-core')>();
+vi.mock('yakchat-core', async (importOriginal) => {
+  const original = await importOriginal<typeof import('yakchat-core')>();
   return {
     ...original,
     getErrorMessage: vi.fn((error: unknown) => {

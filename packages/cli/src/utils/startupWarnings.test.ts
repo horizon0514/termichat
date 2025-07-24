@@ -7,10 +7,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getStartupWarnings } from './startupWarnings.js';
 import * as fs from 'fs/promises';
-import { getErrorMessage } from 'termichat-core';
+import { getErrorMessage } from 'yakchat-core';
 
 vi.mock('fs/promises');
-vi.mock('termichat-core', async (importOriginal) => {
+vi.mock('yakchat-core', async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,

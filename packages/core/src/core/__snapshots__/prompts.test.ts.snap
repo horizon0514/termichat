@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Core System Prompt (prompts.ts) > should append userMemory with separator when provided 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -56,7 +56,7 @@ You are running outside of a sandbox container, directly on the user's system. F
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -94,7 +94,7 @@ Be extra polite."
 `;
 
 exports[`Core System Prompt (prompts.ts) > should include git instructions when in a git repo 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -157,7 +157,7 @@ You are running outside of a sandbox container, directly on the user's system. F
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -190,7 +190,7 @@ Remember: You're a helpful conversational AI that can also use tools when they a
 `;
 
 exports[`Core System Prompt (prompts.ts) > should include non-sandbox instructions when SANDBOX env var is not set 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -245,7 +245,7 @@ You are running outside of a sandbox container, directly on the user's system. F
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -278,7 +278,7 @@ Remember: You're a helpful conversational AI that can also use tools when they a
 `;
 
 exports[`Core System Prompt (prompts.ts) > should include sandbox-specific instructions when SANDBOX env var is set 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -333,7 +333,7 @@ You are running in a sandbox container with limited access to files outside the 
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -366,7 +366,7 @@ Remember: You're a helpful conversational AI that can also use tools when they a
 `;
 
 exports[`Core System Prompt (prompts.ts) > should include seatbelt-specific instructions when SANDBOX env var is "sandbox-exec" 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -421,7 +421,7 @@ You are running under macOS seatbelt with limited access to files outside the pr
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -454,7 +454,7 @@ Remember: You're a helpful conversational AI that can also use tools when they a
 `;
 
 exports[`Core System Prompt (prompts.ts) > should not include git instructions when not in a git repo 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -509,7 +509,7 @@ You are running outside of a sandbox container, directly on the user's system. F
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -542,7 +542,7 @@ Remember: You're a helpful conversational AI that can also use tools when they a
 `;
 
 exports[`Core System Prompt (prompts.ts) > should return the base prompt when no userMemory is provided 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -597,7 +597,7 @@ You are running outside of a sandbox container, directly on the user's system. F
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -630,7 +630,7 @@ Remember: You're a helpful conversational AI that can also use tools when they a
 `;
 
 exports[`Core System Prompt (prompts.ts) > should return the base prompt when userMemory is empty string 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -685,7 +685,7 @@ You are running outside of a sandbox container, directly on the user's system. F
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>
@@ -718,7 +718,7 @@ Remember: You're a helpful conversational AI that can also use tools when they a
 `;
 
 exports[`Core System Prompt (prompts.ts) > should return the base prompt when userMemory is whitespace only 1`] = `
-"You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+"You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -773,7 +773,7 @@ You are running outside of a sandbox container, directly on the user's system. F
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>

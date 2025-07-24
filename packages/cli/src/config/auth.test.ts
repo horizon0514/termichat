@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AuthType } from 'termichat-core';
+import { AuthType } from 'yakchat-core';
 import { vi } from 'vitest';
 import { validateAuthMethod } from './auth.js';
 

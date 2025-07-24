@@ -15,7 +15,7 @@ import {
   SETTINGS_DIRECTORY_NAME,
 } from '../config/settings.js';
 import { promisify } from 'util';
-import { SandboxConfig } from 'termichat-core';
+import { SandboxConfig } from 'yakchat-core';
 
 const execAsync = promisify(exec);
 

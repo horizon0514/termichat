@@ -14,7 +14,7 @@ import {
   ToolExecuteConfirmationDetails,
   ToolMcpConfirmationDetails,
   Config,
-} from 'termichat-core';
+} from 'yakchat-core';
 import {
   RadioButtonSelect,
   RadioSelectItem,

@@ -13,7 +13,7 @@ import {
   getMCPServerStatus,
   getMCPDiscoveryState,
   DiscoveredMCPTool,
-} from 'termichat-core';
+} from 'yakchat-core';
 import open from 'open';
 import { MessageActionReturn } from './types.js';
 import { Type, CallableTool } from '@google/genai';
@@ -23,8 +23,8 @@ vi.mock('open', () => ({
   default: vi.fn(),
 }));
 
-vi.mock('termichat-core', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('termichat-core')>();
+vi.mock('yakchat-core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('yakchat-core')>();
   return {
     ...actual,
     getMCPServerStatus: vi.fn(),

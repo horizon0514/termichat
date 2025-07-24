@@ -21,7 +21,7 @@ import {
   ToolCall,
   Status as CoreStatus,
   EditorType,
-} from 'termichat-core';
+} from 'yakchat-core';
 import { useCallback, useState, useMemo } from 'react';
 import {
   HistoryItemToolGroup,

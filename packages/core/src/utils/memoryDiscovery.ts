@@ -142,7 +142,7 @@ async function getGeminiMdFilePathsInternal(
         );
       }
 
-      // Skip the global .termichat directory itself during upward scan from CWD,
+      // Skip the global .yakchat directory itself during upward scan from CWD,
       // as global is handled separately and explicitly first.
       if (currentDir === path.join(resolvedHome, GEMINI_CONFIG_DIR)) {
         if (debugMode) {

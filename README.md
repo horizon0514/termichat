@@ -1,12 +1,12 @@
-# TermiChat
+# YakChat
 
-[![TermiChat CI](https://github.com/horizon0514/termichat/actions/workflows/ci.yml/badge.svg)](https://github.com/horizon0514/termichat/actions/workflows/ci.yml)
+[![YakChat CI](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml/badge.svg)](https://github.com/horizon0514/yakchat/actions/workflows/ci.yml)
 
-![TermiChat Screenshot](./docs/assets/termichat-screenshot.png)
+![YakChat Screenshot](./docs/assets/yakchat-screenshot.png)
 
-**TermiChat** - AI Chat in Your Terminal 🚀
+**YakChat** - AI Chat in Your Terminal 🚀
 
-TermiChat is a powerful AI chat client that brings Google Gemini's conversational AI directly to your terminal. Built on the solid foundation of Gemini CLI, TermiChat is optimized specifically for seamless AI conversations with a beautiful terminal interface.
+YakChat is a powerful AI chat client that brings Google Gemini's conversational AI directly to your terminal. Built on the solid foundation of Gemini CLI, YakChat is optimized specifically for seamless AI conversations with a beautiful terminal interface.
 
 ## ✨ Features
 
@@ -24,21 +24,21 @@ TermiChat is a powerful AI chat client that brings Google Gemini's conversationa
 ### Install with npm
 
 ```bash
-npm install -g termichat
-termichat
+npm install -g yakchat
+yakchat
 ```
 
 ### Install with Homebrew
 
 ```bash
-brew install termichat
-termichat
+brew install yakchat
+yakchat
 ```
 
 ### Try without installing
 
 ```bash
-npx termichat
+npx yakchat
 ```
 
 ## 🎯 Perfect for
@@ -51,7 +51,7 @@ npx termichat
 
 ## 🎨 Beautiful Themes
 
-TermiChat comes with 16 built-in themes:
+YakChat comes with 16 built-in themes:
 
 - Default Light/Dark
 - GitHub Light/Dark
@@ -90,7 +90,7 @@ Change themes instantly with `/theme` command!
 
 ## 🤝 Contributing
 
-TermiChat is open source! We welcome contributions from the community.
+YakChat is open source! We welcome contributions from the community.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -102,11 +102,11 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
 ## 📄 License
 
-TermiChat is licensed under the [Apache License 2.0](./LICENSE).
+YakChat is licensed under the [Apache License 2.0](./LICENSE).
 
 ## 🙏 Acknowledgments
 
-TermiChat is built upon the excellent foundation of [Google's Gemini CLI](https://github.com/google-gemini/gemini-cli). We thank the Gemini CLI team for creating such a robust platform for AI interactions.
+YakChat is built upon the excellent foundation of [Google's Gemini CLI](https://github.com/google-gemini/gemini-cli). We thank the Gemini CLI team for creating such a robust platform for AI interactions.
 
 ---
 

@@ -20,7 +20,7 @@ import { MemoryTool, GEMINI_CONFIG_DIR } from '../tools/memoryTool.js';
 
 export function getCoreSystemPrompt(userMemory?: string): string {
   // if GEMINI_SYSTEM_MD is set (and not 0|false), override system prompt from file
-  // default path is .termichat/system.md but can be modified via custom path in GEMINI_SYSTEM_MD
+  // default path is .yakchat/system.md but can be modified via custom path in GEMINI_SYSTEM_MD
   let systemMdEnabled = false;
   let systemMdPath = path.resolve(path.join(GEMINI_CONFIG_DIR, 'system.md'));
   const systemMdVar = process.env.GEMINI_SYSTEM_MD?.toLowerCase();
@@ -37,7 +37,7 @@ export function getCoreSystemPrompt(userMemory?: string): string {
   const basePrompt = systemMdEnabled
     ? fs.readFileSync(systemMdPath, 'utf8')
     : `
-You are TermiChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
+You are YakChat, a helpful AI assistant that provides conversational AI directly in the terminal. Your primary goal is to engage in natural, helpful conversations while being able to assist with various tasks through your available tools when needed.
 
 # Core Principles
 
@@ -123,7 +123,7 @@ ${(function () {
 
 <example>
 user: Hello! What can you help me with?
-assistant: Hello! I'm TermiChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
+assistant: Hello! I'm YakChat, your AI assistant in the terminal. I can help you with a wide variety of tasks - from answering questions and having conversations to working with files, running commands, and much more. What would you like to chat about or work on today?
 </example>
 
 <example>

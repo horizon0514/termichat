@@ -21,7 +21,7 @@ import {
   FileFilteringOptions,
   MCPServerConfig,
   IDE_SERVER_NAME,
-} from 'termichat-core';
+} from 'yakchat-core';
 import { Settings } from './settings.js';
 
 import { Extension, annotateActiveExtensions } from './extension.js';

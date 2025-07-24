@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Config, CodeAssistServer, UserTierId } from 'termichat-core';
+import { Config, CodeAssistServer, UserTierId } from 'yakchat-core';
 
 export interface PrivacyState {
   isLoading: boolean;

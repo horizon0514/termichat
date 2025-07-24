@@ -11,7 +11,7 @@ import {
   allowEditorTypeInSandbox,
   checkHasEditorType,
   EditorType,
-} from 'termichat-core';
+} from 'yakchat-core';
 
 interface UseEditorSettingsReturn {
   isEditorDialogOpen: boolean;

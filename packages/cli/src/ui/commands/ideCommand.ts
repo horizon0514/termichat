@@ -12,7 +12,7 @@ import {
   IDE_SERVER_NAME,
   MCPDiscoveryState,
   MCPServerStatus,
-} from 'termichat-core';
+} from 'yakchat-core';
 import {
   CommandContext,
   SlashCommand,

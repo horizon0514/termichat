@@ -9,7 +9,7 @@ import { type PartListUnion } from '@google/genai';
 import process from 'node:process';
 import { UseHistoryManagerReturn } from './useHistoryManager.js';
 import { useStateAndRef } from './useStateAndRef.js';
-import { Config, GitService, Logger } from 'termichat-core';
+import { Config, GitService, Logger } from 'yakchat-core';
 import { useSessionStats } from '../contexts/SessionContext.js';
 import {
   Message,

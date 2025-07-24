@@ -5,7 +5,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { sessionId, Logger } from 'termichat-core';
+import { sessionId, Logger } from 'yakchat-core';
 
 /**
  * Hook to manage the logger instance.

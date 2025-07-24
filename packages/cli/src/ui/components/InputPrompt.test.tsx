@@ -7,7 +7,7 @@
 import { render } from 'ink-testing-library';
 import { InputPrompt, InputPromptProps } from './InputPrompt.js';
 import type { TextBuffer } from './shared/text-buffer.js';
-import { Config } from 'termichat-core';
+import { Config } from 'yakchat-core';
 import { CommandContext, SlashCommand } from '../commands/types.js';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { useShellHistory } from '../hooks/useShellHistory.js';
@@ -310,7 +310,7 @@ describe('InputPrompt', () => {
     it('should handle Ctrl+V when clipboard has an image', async () => {
       vi.mocked(clipboardUtils.clipboardHasImage).mockResolvedValue(true);
       vi.mocked(clipboardUtils.saveClipboardImage).mockResolvedValue(
-        '/test/.termichat-clipboard/clipboard-123.png',
+        '/test/.yakchat-clipboard/clipboard-123.png',
       );
 
       const { stdin, unmount } = render(<InputPrompt {...props} />);
@@ -364,7 +364,7 @@ describe('InputPrompt', () => {
     it('should insert image path at cursor position with proper spacing', async () => {
       vi.mocked(clipboardUtils.clipboardHasImage).mockResolvedValue(true);
       vi.mocked(clipboardUtils.saveClipboardImage).mockResolvedValue(
-        '/test/.termichat-clipboard/clipboard-456.png',
+        '/test/.yakchat-clipboard/clipboard-456.png',
       );
 
       // Set initial text and cursor position
@@ -388,7 +388,7 @@ describe('InputPrompt', () => {
       expect(actualCall[0]).toBe(5); // start offset
       expect(actualCall[1]).toBe(5); // end offset
       expect(actualCall[2]).toMatch(
-        /@.*\.termichat-clipboard\/clipboard-456\.png/,
+        /@.*\.yakchat-clipboard\/clipboard-456\.png/,
       ); // flexible path match
       unmount();
     });

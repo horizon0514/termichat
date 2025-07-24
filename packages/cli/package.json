@@ -1,15 +1,15 @@
 {
-  "name": "termichat",
+  "name": "yakchat-cli",
   "version": "0.1.0",
-  "description": "TermiChat - AI Chat Client in Your Terminal",
+  "description": "YakChat - AI Chat Client in Your Terminal",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/horizon0514/termichat.git"
+    "url": "git+https://github.com/horizon0514/yakchat.git"
   },
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "termichat": "dist/index.js"
+    "yak": "dist/index.js"
   },
   "keywords": [
     "ai",
@@ -19,7 +19,7 @@
     "gemini",
     "conversation"
   ],
-  "author": "TermiChat Contributors",
+  "author": "YakChat Contributors",
   "license": "Apache-2.0",
   "scripts": {
     "build": "node ../../scripts/build_package.js",
@@ -35,7 +35,7 @@
     "dist"
   ],
   "dependencies": {
-    "termichat-core": "file:../core",
+    "yakchat-core": "file:../core",
     "@types/update-notifier": "^6.0.8",
     "command-exists": "^1.2.9",
     "diff": "^7.0.0",

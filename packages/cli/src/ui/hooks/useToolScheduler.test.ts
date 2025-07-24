@@ -25,7 +25,7 @@ import {
   Status as ToolCallStatusType,
   ApprovalMode,
   Icon,
-} from 'termichat-core';
+} from 'yakchat-core';
 import {
   HistoryItemWithoutId,
   ToolCallStatus,
@@ -33,8 +33,8 @@ import {
 } from '../types.js';
 
 // Mocks
-vi.mock('termichat-core', async () => {
-  const actual = await vi.importActual('termichat-core');
+vi.mock('yakchat-core', async () => {
+  const actual = await vi.importActual('yakchat-core');
   return {
     ...actual,
     ToolRegistry: vi.fn(),

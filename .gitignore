@@ -3,11 +3,11 @@
 .env~
 .env.local
 
-# termichat-cli settings
-.termichat/
-!termichat/config.yaml
+# yakchat-cli settings
+.yakchat/
+!yakchat/config.yaml
 
-# Note: .termichat-clipboard/ is NOT in gitignore so Termichat can access pasted images
+# Note: .yakchat-clipboard/ is NOT in gitignore so YakChat can access pasted images
 
 # Dependency directory
 node_modules

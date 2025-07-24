@@ -7,7 +7,7 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 import { Colors } from '../colors.js';
-import { ApprovalMode } from 'termichat-core';
+import { ApprovalMode } from 'yakchat-core';
 
 interface AutoAcceptIndicatorProps {
   approvalMode: ApprovalMode;

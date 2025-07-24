@@ -33,7 +33,7 @@ execSync('node ./scripts/check-build-status.js', {
 });
 
 const nodeArgs = [];
-// Sandbox functionality removed for TermiChat
+// Sandbox functionality removed for YakChat
 // if debugging is enabled, use --inspect-brk flag
 if (process.env.DEBUG) {
   nodeArgs.push('--inspect-brk');
@@ -51,7 +51,7 @@ const env = {
 if (process.env.DEBUG) {
   // If this is not set, the debugger will pause on the outer process rather
   // than the relaunched process making it harder to debug.
-  env.TERMICHAT_NO_RELAUNCH = 'true';
+  env.YakChat_NO_RELAUNCH = 'true';
 }
 const child = spawn('node', nodeArgs, { stdio: 'inherit', env });
 

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { getErrorMessage } from 'termichat-core';
+import { getErrorMessage } from 'yakchat-core';
 import { MessageType } from '../types.js';
 import {
   CommandKind,

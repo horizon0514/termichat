@@ -22,10 +22,10 @@ import {
   type EditorType,
   checkHasEditorType,
   allowEditorTypeInSandbox,
-} from 'termichat-core';
+} from 'yakchat-core';
 
-vi.mock('termichat-core', async () => {
-  const actual = await vi.importActual('termichat-core');
+vi.mock('yakchat-core', async () => {
+  const actual = await vi.importActual('yakchat-core');
   return {
     ...actual,
     checkHasEditorType: vi.fn(() => true),

@@ -18,7 +18,7 @@ import * as fs from 'fs/promises';
 import { restoreCommand } from './restoreCommand.js';
 import { type CommandContext } from './types.js';
 import { createMockCommandContext } from '../../test-utils/mockCommandContext.js';
-import { Config, GitService } from 'termichat-core';
+import { Config, GitService } from 'yakchat-core';
 
 vi.mock('fs/promises', () => ({
   readdir: vi.fn(),

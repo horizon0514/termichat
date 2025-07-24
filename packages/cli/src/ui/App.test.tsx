@@ -16,7 +16,7 @@ import {
   SandboxConfig,
   GeminiClient,
   ideContext,
-} from 'termichat-core';
+} from 'yakchat-core';
 import { LoadedSettings, SettingsFile, Settings } from '../config/settings.js';
 import process from 'node:process';
 import { useGeminiStream } from './hooks/useGeminiStream.js';
@@ -81,9 +81,9 @@ interface MockServerConfig {
   getUserTier: Mock<() => Promise<string | undefined>>;
 }
 
-// Mock termichat-core and its Config class
-vi.mock('termichat-core', async (importOriginal) => {
-  const actualCore = await importOriginal<typeof import('termichat-core')>();
+// Mock yakchat-core and its Config class
+vi.mock('yakchat-core', async (importOriginal) => {
+  const actualCore = await importOriginal<typeof import('yakchat-core')>();
   const ConfigClassMock = vi
     .fn()
     .mockImplementation((optionsPassedToConstructor) => {

@@ -7,7 +7,7 @@
 import React from 'react';
 import { Box, Text } from 'ink';
 import { Colors } from '../colors.js';
-import { type Config } from 'termichat-core';
+import { type Config } from 'yakchat-core';
 
 interface TipsProps {
   config: Config;

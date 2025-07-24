@@ -10,8 +10,8 @@ import { type CommandContext } from './types.js';
 import { createMockCommandContext } from '../../test-utils/mockCommandContext.js';
 
 // Mock the telemetry service
-vi.mock('termichat-core', async () => {
-  const actual = await vi.importActual('termichat-core');
+vi.mock('yakchat-core', async () => {
+  const actual = await vi.importActual('yakchat-core');
   return {
     ...actual,
     uiTelemetryService: {
@@ -20,7 +20,7 @@ vi.mock('termichat-core', async () => {
   };
 });
 
-import { GeminiClient, uiTelemetryService } from 'termichat-core';
+import { GeminiClient, uiTelemetryService } from 'yakchat-core';
 
 describe('clearCommand', () => {
   let mockContext: CommandContext;
