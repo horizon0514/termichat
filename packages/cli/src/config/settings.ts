@@ -15,14 +15,36 @@ import {
   BugCommandSettings,
   TelemetrySettings,
   AuthType,
+  LLMProviderConfig,
 } from 'termichat-core';
 import stripJsonComments from 'strip-json-comments';
 import { DefaultLight } from '../ui/themes/default-light.js';
 import { DefaultDark } from '../ui/themes/default.js';
 import { CustomTheme } from '../ui/themes/theme.js';
 
-export const SETTINGS_DIRECTORY_NAME = '.gemini';
-export const USER_SETTINGS_DIR = path.join(homedir(), SETTINGS_DIRECTORY_NAME);
+export const SETTINGS_DIRECTORY_NAME = '.termichat';
+export const LEGACY_SETTINGS_DIRECTORY_NAME = '.gemini';
+
+// 优先使用 .termichat 目录，如果不存在则使用 .gemini 目录（向后兼容）
+function getConfigDirectory(): string {
+  const termichatDir = path.join(homedir(), SETTINGS_DIRECTORY_NAME);
+  const legacyDir = path.join(homedir(), LEGACY_SETTINGS_DIRECTORY_NAME);
+  
+  // 如果 .termichat 目录存在，使用它
+  if (fs.existsSync(termichatDir)) {
+    return termichatDir;
+  }
+  
+  // 如果 .gemini 目录存在，使用它（向后兼容）
+  if (fs.existsSync(legacyDir)) {
+    return legacyDir;
+  }
+  
+  // 都不存在时，默认使用新的 .termichat 目录
+  return termichatDir;
+}
+
+export const USER_SETTINGS_DIR = getConfigDirectory();
 export const USER_SETTINGS_PATH = path.join(USER_SETTINGS_DIR, 'settings.json');
 
 export function getSystemSettingsPath(): string {
@@ -98,6 +120,10 @@ export interface Settings {
   // A map of tool names to their summarization settings.
   summarizeToolOutput?: Record<string, SummarizeToolOutputSettings>;
 
+  // LLM Provider settings
+  llmProviders?: Record<string, LLMProviderConfig>;
+  defaultLLMProvider?: string;
+
   // Add other settings here.
   ideMode?: boolean;
 }
@@ -154,6 +180,11 @@ export class LoadedSettings {
         ...(user.mcpServers || {}),
         ...(workspace.mcpServers || {}),
         ...(system.mcpServers || {}),
+      },
+      llmProviders: {
+        ...(user.llmProviders || {}),
+        ...(workspace.llmProviders || {}),
+        ...(system.llmProviders || {}),
       },
     };
   }

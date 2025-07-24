@@ -22,6 +22,7 @@ import { useGeminiStream } from './hooks/useGeminiStream.js';
 import { useLoadingIndicator } from './hooks/useLoadingIndicator.js';
 import { useThemeCommand } from './hooks/useThemeCommand.js';
 import { useAuthCommand } from './hooks/useAuthCommand.js';
+import { useProviderCommand } from './hooks/useProviderCommand.js';
 import { useEditorSettings } from './hooks/useEditorSettings.js';
 import { useSlashCommandProcessor } from './hooks/slashCommandProcessor.js';
 import { useAutoAcceptIndicator } from './hooks/useAutoAcceptIndicator.js';
@@ -34,6 +35,8 @@ import { InputPrompt } from './components/InputPrompt.js';
 import { Footer } from './components/Footer.js';
 import { ThemeDialog } from './components/ThemeDialog.js';
 import { AuthDialog } from './components/AuthDialog.js';
+import { ProviderDialog } from './components/ProviderDialog.js';
+import { ProviderListDialog } from './components/ProviderListDialog.js';
 import { AuthInProgress } from './components/AuthInProgress.js';
 import { EditorSettingsDialog } from './components/EditorSettingsDialog.js';
 import { Colors } from './colors.js';
@@ -219,6 +222,19 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
     exitEditorDialog,
   } = useEditorSettings(settings, setEditorError, addItem);
 
+  const {
+    isProviderDialogOpen,
+    isProviderListDialogOpen,
+    editingProvider,
+    openAddProviderDialog,
+    openEditProviderDialog,
+    openProviderListDialog,
+    closeDialogs: closeProviderDialogs,
+    saveProvider,
+    deleteProvider,
+    setDefaultProvider,
+  } = useProviderCommand(settings);
+
   const toggleCorgiMode = useCallback(() => {
     setCorgiMode((prev) => !prev);
   }, []);
@@ -390,6 +406,8 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
     toggleCorgiMode,
     setQuittingMessages,
     openPrivacyNotice,
+    openAddProviderDialog,
+    openProviderListDialog,
   );
   const pendingHistoryItems = [...pendingSlashCommandHistoryItems];
 
@@ -837,6 +855,27 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
                 onSelect={handleEditorSelect}
                 settings={settings}
                 onExit={exitEditorDialog}
+              />
+            </Box>
+          ) : isProviderDialogOpen ? (
+            <Box flexDirection="column">
+              <ProviderDialog
+                onSave={saveProvider}
+                onCancel={closeProviderDialogs}
+                initialConfig={editingProvider?.config}
+                isEdit={!!editingProvider}
+              />
+            </Box>
+          ) : isProviderListDialogOpen ? (
+            <Box flexDirection="column">
+              <ProviderListDialog
+                providers={settings.merged.llmProviders || {}}
+                defaultProvider={settings.merged.defaultLLMProvider}
+                onEdit={openEditProviderDialog}
+                onDelete={deleteProvider}
+                onSetDefault={setDefaultProvider}
+                onCancel={closeProviderDialogs}
+                onAddNew={openAddProviderDialog}
               />
             </Box>
           ) : showPrivacyNotice ? (

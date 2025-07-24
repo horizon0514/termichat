@@ -308,13 +308,13 @@ describe('getFolderStructure gitignore', () => {
           createDirent('node_modules', 'dir'),
           createDirent('ignored.txt', 'file'),
           createDirent('gem_ignored.txt', 'file'),
-          createDirent('.gemini', 'dir'),
+          createDirent('.termichat', 'dir'),
         ] as any;
       }
       if (path === '/test/project/node_modules') {
         return [createDirent('some-package', 'dir')] as any;
       }
-      if (path === '/test/project/.gemini') {
+      if (path === '/test/project/.termichat') {
         return [
           createDirent('config.yaml', 'file'),
           createDirent('logs.json', 'file'),

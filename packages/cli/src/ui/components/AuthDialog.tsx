@@ -59,6 +59,10 @@ export function AuthDialog({
     }
     return null;
   });
+  // Check if there are configured LLM providers
+  const hasLLMProviders = settings.merged.llmProviders && 
+    Object.keys(settings.merged.llmProviders).length > 0;
+
   const items = [
     {
       label: 'Login with Google',
@@ -78,6 +82,14 @@ export function AuthDialog({
     },
     { label: 'Vertex AI', value: AuthType.USE_VERTEX_AI },
     { label: 'Use Custom LLM', value: AuthType.USE_CUSTOM_LLM },
+    ...(hasLLMProviders
+      ? [
+          {
+            label: 'Use LLM Provider',
+            value: AuthType.USE_LLM_PROVIDER,
+          },
+        ]
+      : []),
   ];
 
   const initialAuthIndex = items.findIndex((item) => {

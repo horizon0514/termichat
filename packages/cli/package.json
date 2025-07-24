@@ -4,7 +4,7 @@
   "description": "TermiChat - AI Chat Client in Your Terminal",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_USERNAME/termichat.git"
+    "url": "git+https://github.com/horizon0514/termichat.git"
   },
   "type": "module",
   "main": "dist/index.js",

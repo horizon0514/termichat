@@ -45,6 +45,7 @@ export enum AuthType {
   USE_VERTEX_AI = 'vertex-ai',
   CLOUD_SHELL = 'cloud-shell',
   USE_CUSTOM_LLM = 'custom-llm',
+  USE_LLM_PROVIDER = 'llm-provider',
 }
 
 export type ContentGeneratorConfig = {
@@ -109,6 +110,12 @@ export function createContentGeneratorConfig(
     return contentGeneratorConfig;
   }
 
+  if (authType === AuthType.USE_LLM_PROVIDER) {
+    contentGeneratorConfig.authType = AuthType.USE_LLM_PROVIDER;
+    // LLM provider configuration will be handled in createContentGenerator
+    return contentGeneratorConfig;
+  }
+
   return contentGeneratorConfig;
 }
 
@@ -150,6 +157,13 @@ export async function createContentGenerator(
 
   if (config.authType === AuthType.USE_CUSTOM_LLM) {
     return new CustomLLMContentGenerator();
+  }
+
+  if (config.authType === AuthType.USE_LLM_PROVIDER) {
+    // TODO: This will be implemented in Phase 5 when we create the LLM Provider content generator
+    // const { LLMProviderContentGenerator } = await import('../models/llmProviderGenerator.js');
+    // return new LLMProviderContentGenerator(_gcConfig);
+    throw new Error('LLM Provider content generator not yet implemented');
   }
 
   throw new Error(
