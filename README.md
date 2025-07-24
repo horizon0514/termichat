@@ -1,6 +1,6 @@
 # TermiChat
 
-[![TermiChat CI](https://github.com/YOUR_USERNAME/termichat/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/termichat/actions/workflows/ci.yml)
+[![TermiChat CI](https://github.com/horizon0514/termichat/actions/workflows/ci.yml/badge.svg)](https://github.com/horizon0514/termichat/actions/workflows/ci.yml)
 
 ![TermiChat Screenshot](./docs/assets/termichat-screenshot.png)
 
