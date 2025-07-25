@@ -45,6 +45,7 @@ import {
 } from './models.js';
 import { ClearcutLogger } from '../telemetry/clearcut-logger/clearcut-logger.js';
 import { shouldAttemptBrowserLaunch } from '../utils/browser.js';
+import { LLMProviderConfig } from './llmProvider.js';
 
 export enum ApprovalMode {
   DEFAULT = 'default',
@@ -168,6 +169,7 @@ export interface ConfigParameters {
   noBrowser?: boolean;
   summarizeToolOutput?: Record<string, SummarizeToolOutputSettings>;
   ideMode?: boolean;
+  defaultProvider?: LLMProviderConfig;
 }
 
 export class Config {
@@ -223,6 +225,7 @@ export class Config {
     | Record<string, SummarizeToolOutputSettings>
     | undefined;
   private readonly experimentalAcp: boolean = false;
+  private readonly defaultProvider: LLMProviderConfig | undefined;
 
   constructor(params: ConfigParameters) {
     this.sessionId = params.sessionId;
@@ -273,6 +276,7 @@ export class Config {
     this.noBrowser = params.noBrowser ?? false;
     this.summarizeToolOutput = params.summarizeToolOutput;
     this.ideMode = params.ideMode ?? false;
+    this.defaultProvider = params.defaultProvider;
 
     if (params.contextFileName) {
       setGeminiMdFilename(params.contextFileName);
@@ -555,6 +559,10 @@ export class Config {
 
   getIdeMode(): boolean {
     return this.ideMode;
+  }
+
+  getDefaultProvider(): LLMProviderConfig | undefined {
+    return this.defaultProvider;
   }
 
   async getGitService(): Promise<GitService> {

@@ -47,8 +47,8 @@ Do NOT use this tool:
 `;
 
 export const GEMINI_CONFIG_DIR = '.yakchat';
-export const DEFAULT_CONTEXT_FILENAME = 'GEMINI.md';
-export const MEMORY_SECTION_HEADER = '## Gemini Added Memories';
+export const DEFAULT_CONTEXT_FILENAME = 'YAK.md';
+export const MEMORY_SECTION_HEADER = '## Yak Added Memories';
 
 // This variable will hold the currently configured filename for GEMINI.md context files.
 // It defaults to DEFAULT_CONTEXT_FILENAME but can be overridden by setGeminiMdFilename.

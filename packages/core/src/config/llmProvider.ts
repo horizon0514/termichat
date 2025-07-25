@@ -26,6 +26,14 @@ export interface LLMProviderConfig {
   apiKey: string;
   /** Custom base URL (optional, uses default if not provided) */
   baseUrl?: string;
+  /** The model to use */
+  model?: string;
+  /** Controls randomness, between 0 and 2 */
+  temperature?: number;
+  /** The maximum number of tokens to generate */
+  maxTokens?: number;
+  /** Nucleus sampling probability */
+  topP?: number;
   /** Whether this is the default provider */
   isDefault?: boolean;
   /** Whether this provider is enabled */
