@@ -5,9 +5,9 @@
  */
 
 /**
- * Custom LLM content generator configuration
+ * Vercel AI SDK content generator configuration
  */
-export interface CustomLLMContentGeneratorConfig {
+export interface AISDKContentGeneratorConfig {
   model: string;
   temperature: number;
   max_tokens: number;

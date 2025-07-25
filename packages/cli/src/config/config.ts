@@ -380,6 +380,12 @@ export async function loadCliConfig(
 
   const sandboxConfig = await loadSandboxConfig(settings, argv);
 
+  const defaultProviderName = settings.defaultLLMProvider;
+  const defaultProvider =
+    defaultProviderName && settings.llmProviders
+      ? settings.llmProviders[defaultProviderName]
+      : undefined;
+
   return new Config({
     sessionId,
     embeddingModel: DEFAULT_GEMINI_EMBEDDING_MODEL,
@@ -441,6 +447,7 @@ export async function loadCliConfig(
     noBrowser: !!process.env.NO_BROWSER,
     summarizeToolOutput: settings.summarizeToolOutput,
     ideMode,
+    defaultProvider,
   });
 }
 

@@ -18,7 +18,11 @@ import { DEFAULT_GEMINI_MODEL } from '../config/models.js';
 import { Config } from '../config/config.js';
 import { getEffectiveModel } from './modelCheck.js';
 import { UserTierId } from '../code_assist/types.js';
-import { CustomLLMContentGenerator } from '../models/index.js';
+import {
+  OpenAIContentGenerator,
+  OpenRouterContentGenerator,
+} from '../models/index.js';
+import { LLMProviderConfig, LLMProviderType } from '../config/llmProvider.js';
 
 /**
  * Interface abstracting the core functionalities for generating content and counting tokens.
@@ -53,12 +57,14 @@ export type ContentGeneratorConfig = {
   apiKey?: string;
   vertexai?: boolean;
   authType?: AuthType | undefined;
+  llmProvider?: LLMProviderConfig;
   proxy?: string | undefined;
 };
 
 export function createContentGeneratorConfig(
   config: Config,
   authType: AuthType | undefined,
+  defaultProviderConfig?: LLMProviderConfig,
 ): ContentGeneratorConfig {
   const geminiApiKey = process.env.GEMINI_API_KEY || undefined;
   const googleApiKey = process.env.GOOGLE_API_KEY || undefined;
@@ -156,14 +162,26 @@ export async function createContentGenerator(
   }
 
   if (config.authType === AuthType.USE_CUSTOM_LLM) {
-    return new CustomLLMContentGenerator();
+    // This is now legacy, providers should be used instead.
+    // We'll keep it for now, configured by environment variables.
+    return new OpenAIContentGenerator();
   }
 
   if (config.authType === AuthType.USE_LLM_PROVIDER) {
-    // TODO: This will be implemented in Phase 5 when we create the LLM Provider content generator
-    // const { LLMProviderContentGenerator } = await import('../models/llmProviderGenerator.js');
-    // return new LLMProviderContentGenerator(_gcConfig);
-    throw new Error('LLM Provider content generator not yet implemented');
+    const providerConfig = _gcConfig.getDefaultProvider();
+    if (!providerConfig) {
+      throw new Error(
+        'LLM provider is not configured. Please set a default provider using "/provider set-default <name>".',
+      );
+    }
+    switch (providerConfig.type) {
+      case LLMProviderType.OPENROUTER:
+        return new OpenRouterContentGenerator(providerConfig);
+      case LLMProviderType.OPENAI_COMPATIBLE:
+        return new OpenAIContentGenerator(providerConfig);
+      default:
+        throw new Error(`Unsupported llmProviderType: ${providerConfig.type}`);
+    }
   }
 
   throw new Error(
