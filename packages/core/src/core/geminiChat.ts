@@ -388,7 +388,7 @@ export class GeminiChat {
 
     try {
       const apiCall = () => {
-        const modelToUse = this.config.getModel();
+        const modelToUse = this.config.getModel() || DEFAULT_GEMINI_FLASH_MODEL;
 
         // Prevent Flash model calls immediately after quota error
         if (

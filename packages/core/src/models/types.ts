@@ -26,6 +26,15 @@ export interface ToolCallData {
 }
 
 /**
+ * A single tool call from the AI SDK
+ */
+export interface AIToolCall {
+  toolCallId: string;
+  toolName: string;
+  args: Record<string, unknown>;
+}
+
+/**
  * Map for tracking tool calls during streaming
  */
 export type ToolCallMap = Map<number, ToolCallData>;

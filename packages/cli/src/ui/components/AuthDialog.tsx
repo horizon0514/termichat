@@ -30,6 +30,8 @@ function parseDefaultAuthType(
   return null;
 }
 
+const DEFAULT_AUTH_TYPE = AuthType.USE_GEMINI;
+
 export function AuthDialog({
   onSelect,
   settings,
@@ -64,24 +66,12 @@ export function AuthDialog({
     settings.merged.llmProviders &&
     Object.keys(settings.merged.llmProviders).length > 0;
 
+  // TODO: remove login with google, vertex ai, cloud shell
   const items = [
-    {
-      label: 'Login with Google',
-      value: AuthType.LOGIN_WITH_GOOGLE,
-    },
-    ...(process.env.CLOUD_SHELL === 'true'
-      ? [
-          {
-            label: 'Use Cloud Shell user credentials',
-            value: AuthType.CLOUD_SHELL,
-          },
-        ]
-      : []),
     {
       label: 'Use Gemini API Key',
       value: AuthType.USE_GEMINI,
     },
-    { label: 'Vertex AI', value: AuthType.USE_VERTEX_AI },
     { label: 'Use Custom LLM', value: AuthType.USE_CUSTOM_LLM },
     ...(hasLLMProviders
       ? [
@@ -109,7 +99,7 @@ export function AuthDialog({
       return item.value === AuthType.USE_GEMINI;
     }
 
-    return item.value === AuthType.LOGIN_WITH_GOOGLE;
+    return item.value === DEFAULT_AUTH_TYPE;
   });
 
   const handleAuthSelect = (authMethod: AuthType) => {
@@ -169,13 +159,11 @@ export function AuthDialog({
         <Text color={Colors.Gray}>(Use Enter to select)</Text>
       </Box>
       <Box marginTop={1}>
-        <Text>Terms of Services and Privacy Notice for Gemini CLI</Text>
+        <Text>Terms of Services and Privacy Notice for Yak</Text>
       </Box>
       <Box marginTop={1}>
         <Text color={Colors.AccentBlue}>
-          {
-            'https://github.com/google-gemini/gemini-cli/blob/main/docs/tos-privacy.md'
-          }
+          {'https://github.com/horizon0514/yak/blob/main/docs/tos-privacy.md'}
         </Text>
       </Box>
     </Box>

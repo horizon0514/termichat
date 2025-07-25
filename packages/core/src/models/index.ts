@@ -11,6 +11,7 @@ import {
   CountTokensParameters,
   EmbedContentResponse,
   EmbedContentParameters,
+  GenerateContentConfig,
 } from '@google/genai';
 import { createOpenAI } from '@ai-sdk/openai';
 import {
@@ -19,6 +20,7 @@ import {
   generateObject,
   streamObject,
   jsonSchema,
+  GenerateObjectResult,
 } from 'ai';
 import { ContentGenerator } from '../core/contentGenerator.js';
 import { CustomLLMContentGeneratorConfig } from './types.js';
@@ -101,35 +103,46 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     return normalized;
   }
 
+  private _getCommonParams(request: GenerateContentParameters) {
+    const messages = ModelConverter.toOpenAIMessages(request);
+    return {
+      model: this.model(this.modelName),
+      messages,
+      temperature: this.temperature,
+      maxTokens: this.maxTokens,
+      topP: this.topP,
+    };
+  }
+
+  private _isJsonRequest(
+    config: GenerateContentConfig | undefined,
+  ): config is GenerateContentConfig & { responseSchema: object } {
+    return (
+      config?.responseMimeType === 'application/json' &&
+      !!config?.responseSchema
+    );
+  }
+
   /**
    * Asynchronously generates content responses in a streaming fashion.
    */
   async generateContentStream(
     request: GenerateContentParameters,
   ): Promise<AsyncGenerator<GenerateContentResponse>> {
-    const messages = ModelConverter.toOpenAIMessages(request);
+    const commonParams = this._getCommonParams(request);
+    const { config } = request;
 
-    // Check if this is a structured JSON output request
-    const isJsonRequest =
-      request.config?.responseMimeType === 'application/json' &&
-      request.config?.responseSchema;
-
-    if (isJsonRequest && request.config?.responseSchema) {
+    if (this._isJsonRequest(config)) {
       // Use streamObject for structured JSON output
-      const rawSchema = request.config.responseSchema as Record<
-        string,
-        unknown
-      >;
-      const normalizedSchema = this.normalizeSchema(rawSchema);
+      const rawSchema = config.responseSchema;
+      const normalizedSchema = this.normalizeSchema(
+        rawSchema as Record<string, unknown>,
+      );
 
       try {
         const stream = streamObject({
-          model: this.model(this.modelName),
-          messages,
+          ...commonParams,
           schema: jsonSchema(normalizedSchema),
-          temperature: this.temperature,
-          maxTokens: this.maxTokens,
-          topP: this.topP,
         });
 
         return (async function* (): AsyncGenerator<GenerateContentResponse> {
@@ -143,31 +156,42 @@ export class CustomLLMContentGenerator implements ContentGenerator {
       } catch (error) {
         console.error('[CustomLLM] streamObject error:', error);
         throw new Error(
-          `Failed to generate streaming JSON content: ${error instanceof Error ? error.message : String(error)}`,
+          `Failed to generate streaming JSON content: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
         );
       }
     } else {
       // Use streamText for regular text output
       try {
         const stream = streamText({
-          model: this.model(this.modelName),
-          messages,
-          temperature: this.temperature,
-          maxTokens: this.maxTokens,
-          topP: this.topP,
+          ...commonParams,
+          tools: ModelConverter.toAiSDKTools(request.config?.tools),
         });
 
         return (async function* (): AsyncGenerator<GenerateContentResponse> {
-          for await (const chunk of stream.textStream) {
-            const response = ModelConverter.toGeminiStreamTextResponse(chunk);
-            if (response) {
-              yield response;
+          for await (const chunk of stream.fullStream) {
+            if (chunk.type === 'text-delta') {
+              const response = ModelConverter.toGeminiStreamTextResponse(
+                chunk.textDelta,
+              );
+              if (response) {
+                yield response;
+              }
+            } else if (chunk.type === 'tool-call') {
+              const response =
+                ModelConverter.toGeminiStreamToolCallsResponse(chunk);
+              if (response) {
+                yield response;
+              }
             }
           }
         })();
       } catch (error) {
         throw new Error(
-          `Failed to generate streaming text content: ${error instanceof Error ? error.message : String(error)}`,
+          `Failed to generate streaming text content: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
         );
       }
     }
@@ -179,59 +203,46 @@ export class CustomLLMContentGenerator implements ContentGenerator {
   async generateContent(
     request: GenerateContentParameters,
   ): Promise<GenerateContentResponse> {
-    const messages = ModelConverter.toOpenAIMessages(request);
+    const commonParams = this._getCommonParams(request);
+    const { config } = request;
 
-    // Check if this is a structured JSON output request
-    const isJsonRequest =
-      request.config?.responseMimeType === 'application/json' &&
-      request.config?.responseSchema;
-
-    if (isJsonRequest && request.config?.responseSchema) {
+    if (this._isJsonRequest(config)) {
       // Use generateObject for structured JSON output
-      const rawSchema = request.config.responseSchema as Record<
-        string,
-        unknown
-      >;
-      const normalizedSchema = this.normalizeSchema(rawSchema);
+      const rawSchema = config.responseSchema;
+      const normalizedSchema = this.normalizeSchema(
+        rawSchema as Record<string, unknown>,
+      );
 
       try {
         const result = await generateObject({
-          model: this.model(this.modelName),
-          messages,
+          ...commonParams,
           schema: jsonSchema(normalizedSchema),
-          temperature: this.temperature,
-          maxTokens: this.maxTokens,
-          topP: this.topP,
         });
 
-        // Type assertion for the result
-        const typedResult = {
-          object: result.object as Record<string, unknown>,
-          usage: result.usage,
-          finishReason: result.finishReason,
-        };
-
-        return ModelConverter.toGeminiObjectResponse(typedResult);
+        return ModelConverter.toGeminiObjectResponse(
+          result as GenerateObjectResult<Record<string, unknown>>,
+        );
       } catch (error) {
         throw new Error(
-          `Failed to generate JSON content: ${error instanceof Error ? error.message : String(error)}`,
+          `Failed to generate JSON content: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
         );
       }
     } else {
       // Use generateText for regular text output
       try {
         const result = await generateText({
-          model: this.model(this.modelName),
-          messages,
-          temperature: this.temperature,
-          maxTokens: this.maxTokens,
-          topP: this.topP,
+          ...commonParams,
+          tools: ModelConverter.toAiSDKTools(request.config?.tools), // add tools to the request
         });
 
         return ModelConverter.toGeminiResponse(result);
       } catch (error) {
         throw new Error(
-          `Failed to generate text content: ${error instanceof Error ? error.message : String(error)}`,
+          `Failed to generate text content: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
         );
       }
     }
