@@ -30,6 +30,8 @@ function parseDefaultAuthType(
   return null;
 }
 
+const DEFAULT_AUTH_TYPE = AuthType.USE_GEMINI;
+
 export function AuthDialog({
   onSelect,
   settings,
@@ -97,7 +99,7 @@ export function AuthDialog({
       return item.value === AuthType.USE_GEMINI;
     }
 
-    return item.value === AuthType.USE_LLM_PROVIDER;
+    return item.value === DEFAULT_AUTH_TYPE;
   });
 
   const handleAuthSelect = (authMethod: AuthType) => {
