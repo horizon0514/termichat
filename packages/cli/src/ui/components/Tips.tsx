@@ -28,7 +28,7 @@ export const Tips: React.FC<TipsProps> = ({ config }) => {
           <Text bold color={Colors.AccentPurple}>
             YAK.md
           </Text>{' '}
-          files to customize your interactions with Gemini.
+          files to customize your interactions with Yak.
         </Text>
       )}
       <Text color={Colors.Foreground}>
