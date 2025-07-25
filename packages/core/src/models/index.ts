@@ -118,7 +118,8 @@ export class CustomLLMContentGenerator implements ContentGenerator {
     config: GenerateContentConfig | undefined,
   ): config is GenerateContentConfig & { responseSchema: object } {
     return (
-      config?.responseMimeType === 'application/json' && !!config?.responseSchema
+      config?.responseMimeType === 'application/json' &&
+      !!config?.responseSchema
     );
   }
 
