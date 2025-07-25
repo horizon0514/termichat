@@ -155,13 +155,24 @@ export class CustomLLMContentGenerator implements ContentGenerator {
           temperature: this.temperature,
           maxTokens: this.maxTokens,
           topP: this.topP,
+          tools: ModelConverter.toAiSDKTools(request.config?.tools),
         });
 
         return (async function* (): AsyncGenerator<GenerateContentResponse> {
-          for await (const chunk of stream.textStream) {
-            const response = ModelConverter.toGeminiStreamTextResponse(chunk);
-            if (response) {
-              yield response;
+          for await (const chunk of stream.fullStream) {
+            if (chunk.type === 'text-delta') {
+              const response = ModelConverter.toGeminiStreamTextResponse(
+                chunk.textDelta,
+              );
+              if (response) {
+                yield response;
+              }
+            } else if (chunk.type === 'tool-call') {
+              const response =
+                ModelConverter.toGeminiStreamToolCallsResponse(chunk);
+              if (response) {
+                yield response;
+              }
             }
           }
         })();
@@ -226,6 +237,7 @@ export class CustomLLMContentGenerator implements ContentGenerator {
           temperature: this.temperature,
           maxTokens: this.maxTokens,
           topP: this.topP,
+          tools: ModelConverter.toAiSDKTools(request.config?.tools), // add tools to the request
         });
 
         return ModelConverter.toGeminiResponse(result);

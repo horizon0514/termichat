@@ -8,14 +8,16 @@ import {
   GenerateContentResponse,
   Part,
   GenerateContentParameters,
+  ToolListUnion,
 } from '@google/genai';
 import {
   normalizeContents,
   isValidFunctionCall,
   isValidFunctionResponse,
 } from './util.js';
-import { CoreMessage } from 'ai';
-import { ToolCallMap } from './types.js';
+import { CoreMessage, tool, ToolSet } from 'ai';
+import { z, ZodTypeAny } from 'zod';
+import { AIToolCall } from './types.js';
 
 interface GenerateTextResult {
   text: string;
@@ -41,6 +43,121 @@ interface GenerateObjectResult {
 }
 
 export class ModelConverter {
+  /**
+   * Convert Gemini tool definitions to AI SDK tools
+   */
+  static toAiSDKTools(
+    geminiTools: ToolListUnion | undefined,
+  ): ToolSet | undefined {
+    if (!geminiTools) {
+      return undefined;
+    }
+
+    const aiTools: ToolSet = {};
+
+    for (const geminiTool of geminiTools) {
+      if (
+        'functionDeclarations' in geminiTool &&
+        geminiTool.functionDeclarations
+      ) {
+        for (const func of geminiTool.functionDeclarations) {
+          if (func.name) {
+            aiTools[func.name] = tool({
+              description: func.description,
+              parameters: this.convertJsonSchemaToZod(func.parameters),
+            });
+          }
+        }
+      }
+    }
+
+    return Object.keys(aiTools).length > 0 ? aiTools : undefined;
+  }
+
+  /**
+   * Convert a JSON schema to a Zod schema.
+   */
+  private static convertJsonSchemaToZod(jsonSchema: unknown): ZodTypeAny {
+    if (
+      !jsonSchema ||
+      typeof jsonSchema !== 'object' ||
+      !('properties' in jsonSchema) ||
+      typeof jsonSchema.properties !== 'object' ||
+      !jsonSchema.properties
+    ) {
+      return z.object({});
+    }
+
+    const shape: Record<string, ZodTypeAny> = {};
+    const requiredFields = new Set(
+      'required' in jsonSchema && Array.isArray(jsonSchema.required)
+        ? jsonSchema.required
+        : [],
+    );
+
+    for (const [key, prop] of Object.entries(
+      jsonSchema.properties as Record<string, unknown>,
+    )) {
+      let fieldSchema = this.jsonTypeToZod(prop);
+      if (!requiredFields.has(key)) {
+        fieldSchema = fieldSchema.optional();
+      }
+      shape[key] = fieldSchema;
+    }
+
+    return z.object(shape);
+  }
+
+  /**
+   * Convert a JSON schema type to a Zod type.
+   */
+  private static jsonTypeToZod(property: unknown): ZodTypeAny {
+    if (!property || typeof property !== 'object') {
+      return z.any();
+    }
+
+    const prop = property as Record<string, unknown> & {
+      type?: string;
+      description?: string;
+      enum?: string[];
+      items?: unknown;
+    };
+
+    let schema: ZodTypeAny;
+
+    switch (prop.type) {
+      case 'string':
+        if (prop.enum) {
+          schema = z.enum(prop.enum as [string, ...string[]]);
+        } else {
+          schema = z.string();
+        }
+        break;
+      case 'number':
+      case 'integer':
+        schema = z.number();
+        break;
+      case 'boolean':
+        schema = z.boolean();
+        break;
+      case 'object':
+        schema = this.convertJsonSchemaToZod(prop);
+        break;
+      case 'array':
+        schema = z.array(this.jsonTypeToZod(prop.items));
+        break;
+      default:
+        schema = z.any();
+        break;
+    }
+
+    if (prop.description) {
+      return schema.describe(prop.description);
+    }
+
+    return schema;
+  }
+
   /**
    * Convert Gemini content to AI SDK messages
    */
@@ -191,28 +308,28 @@ export class ModelConverter {
    */
   static toGeminiResponse(result: GenerateTextResult): GenerateContentResponse {
     const res = new GenerateContentResponse();
+    const parts: Part[] = [];
 
     if (result.text) {
-      res.candidates = [
-        {
-          content: {
-            parts: [{ text: result.text }],
-            role: 'model',
+      parts.push({ text: result.text });
+    }
+
+    if (result.toolCalls && result.toolCalls.length > 0) {
+      parts.push(
+        ...result.toolCalls.map((toolCall) => ({
+          functionCall: {
+            name: toolCall.toolName,
+            args: toolCall.args,
           },
-          index: 0,
-          safetyRatings: [],
-        },
-      ];
-    } else if (result.toolCalls && result.toolCalls.length > 0) {
+        })),
+      );
+    }
+
+    if (parts.length > 0) {
       res.candidates = [
         {
           content: {
-            parts: result.toolCalls.map((toolCall) => ({
-              functionCall: {
-                name: toolCall.toolName,
-                args: toolCall.args,
-              },
-            })),
+            parts,
             role: 'model',
           },
           index: 0,
@@ -283,20 +400,20 @@ export class ModelConverter {
    * Convert completed tool calls to Gemini response
    */
   static toGeminiStreamToolCallsResponse(
-    toolCallMap: ToolCallMap,
+    toolCall: AIToolCall,
   ): GenerateContentResponse {
     const res = new GenerateContentResponse();
     res.candidates = [
       {
         content: {
-          parts: Array.from(toolCallMap.entries()).map(
-            ([_index, toolCall]) => ({
+          parts: [
+            {
               functionCall: {
-                name: toolCall.name,
-                args: toolCall.arguments ? JSON.parse(toolCall.arguments) : {},
+                name: toolCall.toolName,
+                args: toolCall.args,
               },
-            }),
-          ),
+            },
+          ],
           role: 'model',
         },
         index: 0,
