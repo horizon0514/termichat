@@ -161,37 +161,6 @@ describe('AuthDialog', () => {
   });
 
   describe('GEMINI_DEFAULT_AUTH_TYPE environment variable', () => {
-    it('should select the auth type specified by GEMINI_DEFAULT_AUTH_TYPE', () => {
-      process.env.GEMINI_DEFAULT_AUTH_TYPE = AuthType.LOGIN_WITH_GOOGLE;
-
-      const settings: LoadedSettings = new LoadedSettings(
-        {
-          settings: {
-            selectedAuthType: undefined,
-            customThemes: {},
-            mcpServers: {},
-          },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        {
-          settings: { customThemes: {}, mcpServers: {} },
-          path: '',
-        },
-        [],
-      );
-
-      const { lastFrame } = render(
-        <AuthDialog onSelect={() => {}} settings={settings} />,
-      );
-
-      // This is a bit brittle, but it's the best way to check which item is selected.
-      expect(lastFrame()).toContain('● 1. Login with Google');
-    });
-
     it('should fall back to default if GEMINI_DEFAULT_AUTH_TYPE is not set', () => {
       const settings: LoadedSettings = new LoadedSettings(
         {
@@ -218,7 +187,7 @@ describe('AuthDialog', () => {
       );
 
       // Default is LOGIN_WITH_GOOGLE
-      expect(lastFrame()).toContain('● 1. Login with Google');
+      expect(lastFrame()).toContain('● 1. Use Gemini API Key');
     });
 
     it('should show an error and fall back to default if GEMINI_DEFAULT_AUTH_TYPE is invalid', () => {
@@ -252,8 +221,8 @@ describe('AuthDialog', () => {
         'Invalid value for GEMINI_DEFAULT_AUTH_TYPE: "invalid-auth-type"',
       );
 
-      // Default is LOGIN_WITH_GOOGLE
-      expect(lastFrame()).toContain('● 1. Login with Google');
+      // Default is Use Gemini API Key
+      expect(lastFrame()).toContain('● 1. Use Gemini API Key');
     });
   });
 

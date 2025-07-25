@@ -32,8 +32,8 @@ interface GenerateTextResult {
   }>;
 }
 
-interface GenerateObjectResult {
-  object: Record<string, unknown>;
+interface GenerateObjectResult<T> {
+  object: T;
   usage?: {
     promptTokens: number;
     completionTokens: number;
@@ -351,7 +351,7 @@ export class ModelConverter {
    * Convert AI SDK generateObject response to Gemini response
    */
   static toGeminiObjectResponse(
-    result: GenerateObjectResult,
+    result: GenerateObjectResult<Record<string, unknown>>,
   ): GenerateContentResponse {
     const res = new GenerateContentResponse();
 
